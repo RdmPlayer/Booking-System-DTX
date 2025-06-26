@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Room Calendar</title>
+<script>
+  // Load shared responsive CSS
+  async function loadResponsiveStyle() {
+    try {
+      const res = await fetch('responsive-style.html');
+      const html = await res.text();
+      const fragment = document.createRange().createContextualFragment(html);
+      document.head.appendChild(fragment);
+    } catch (err) {
+      console.error('Failed to load responsive-style.html:', err);
+    }
+  }
+
+  loadResponsiveStyle();
+</script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    .calendar-container {
+      max-width: 700px;
+      width: 95%;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 3px solid #333;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    /* 2-column top nav for month and year */
+    .month-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      margin-bottom: 25px;
+      gap: 60px; /* increased horizontal gap */
+      justify-content: center;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .month-select, .year-select {
+      font-size: clamp(14px, 3vw, 18px);
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background-color: #c42026; /* dark red background */
+      color: white;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 140px;
+      max-width: 140px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease;
+      position: relative;
+      /* Add custom arrow */
+      background-image:
+        linear-gradient(45deg, transparent 50%, white 50%),
+        linear-gradient(135deg, white 50%, transparent 50%);
+      background-position:
+        calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px);
+      background-size: 5px 5px;
+      background-repeat: no-repeat;
+    }
+    .month-select:hover, .year-select:hover {
+      background-color: #a11820; /* slightly darker on hover */
+    }
+
+    .month-select {
+      justify-self: end; /* move month dropdown slightly right */
+      margin-right: 10px;
+    }
+
+    .year-select {
+      justify-self: start; /* move year dropdown slightly left */
+      margin-left: 10px;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      border: 1px solid #ccc;
+    }
+
+    .weekday {
+      font-size: clamp(12px, 2.5vw, 18px);
+      text-align: center;
+      font-weight: bold;
+      background-color: #003366;
+      color: white;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      padding: 6px 0; /* only vertical padding, no forced height */
+      user-select: none;
+    }
+
+    .day {
+      aspect-ratio: 1 / 1;
+      min-width: min(12vw, 80px);
+      font-size: clamp(12px, 2.5vw, 18px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      background-color: #4CAF50; /* Available */
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      user-select: none;
+    }
+
+    .day:hover:not(.disabled):not(.booked) {
+      background-color: #388e3c;
+    }
+
+    .day.disabled {
+      background-color: grey;
+      color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .day.booked {
+      background-color: #c42026;
+      cursor: not-allowed;
+    }
+
+    /* Highlight current day with yellow */
+    .day.today {
+      background-color: #FFD54F !important;
+      color: black;
+      font-weight: 900;
+      box-shadow: 0 0 10px 3px #FFD54Faa;
+    }
+
+    /* Fill empty cells before first day and after last day */
+    .placeholder {
+      background-color: transparent;
+      cursor: default;
+      border: none;
+      user-select: none;
+    }
+.back-button {
+  width: 80px;
+  height: 80px;
+  background-image: url('back.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  position: fixed;
+  top: 110px;
+  left: 20px;
+  z-index: 1000;
+}
+
+.back-button:hover {
+  opacity: 0.8;
+}
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+  <div class="calendar-container">
+    <div class="back-button" onclick="history.back()"></div>
+    <div class="month-nav">
+      <select id="monthSelect" class="month-select" aria-label="Select Month"></select>
+      <select id="yearSelect" class="year-select" aria-label="Select Year"></select>
+    </div>
+
+    <div class="calendar" id="weekdayHeader"></div>
+    <div class="calendar" id="calendar"></div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const selectedRoom = params.get("room") || "UnknownRoom";
+    const calendarEl = document.getElementById("calendar");
+    const weekdayHeaderEl = document.getElementById("weekdayHeader");
+    const monthSelect = document.getElementById("monthSelect");
+    const yearSelect = document.getElementById("yearSelect");
+
+    const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    let currentDate = new Date();
+
+    // Populate month dropdown
+    function populateMonthSelect() {
+      monthSelect.innerHTML = "";
+      monthNames.forEach((name, index) => {
+        const option = document.createElement("option");
+        option.value = index;
+        option.textContent = name;
+        monthSelect.appendChild(option);
+      });
+    }
+
+    // Populate year dropdown (range from current year -10 to current year +10)
+    function populateYearSelect() {
+      yearSelect.innerHTML = "";
+      const currentYear = new Date().getFullYear();
+      for(let y = currentYear - 10; y <= currentYear + 10; y++) {
+        const option = document.createElement("option");
+        option.value = y;
+        option.textContent = y;
+        yearSelect.appendChild(option);
+      }
+    }
+
+    function renderWeekdays() {
+      weekdayHeaderEl.innerHTML = "";
+      weekdays.forEach(day => {
+        const div = document.createElement("div");
+        div.textContent = day;
+        div.className = "weekday";
+        weekdayHeaderEl.appendChild(div);
+      });
+    }
+
+    function isFullyBooked(room, dateStr) {
+      for (let hour = 7; hour <= 16; hour++) {
+        const key = `booking-${room}-${dateStr}-${hour}:00`;
+        if (!localStorage.getItem(key)) return false;
+      }
+      return true;
+    }
+
+    function renderCalendar(date) {
+      calendarEl.innerHTML = "";
+      renderWeekdays();
+
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const today = new Date();
+      const todayYMD = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+      const firstDayOfMonth = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const monthStr = String(month + 1).padStart(2, '0');
+
+      // Add placeholders before first day of month
+      for (let i = 0; i < firstDayOfMonth; i++) {
+        const empty = document.createElement("div");
+        empty.className = "day placeholder";
+        calendarEl.appendChild(empty);
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dayStr = String(day).padStart(2, '0');
+        const dateStr = `${year}-${monthStr}-${dayStr}`;
+        const fullDate = new Date(year, month, day);
+
+        const dayEl = document.createElement("div");
+        dayEl.className = "day";
+        dayEl.textContent = day;
+
+        if (fullDate < todayYMD) {
+          dayEl.classList.add("disabled");
+        } else if (isFullyBooked(selectedRoom, dateStr)) {
+          dayEl.classList.add("booked");
+        } else {
+          dayEl.addEventListener("click", () => {
+            window.location.href = `time.html?room=${encodeURIComponent(selectedRoom)}&date=${dateStr}`;
+          });
+        }
+
+        // Highlight current day
+        if (fullDate.getTime() === todayYMD.getTime()) {
+          dayEl.classList.add("today");
+        }
+
+        calendarEl.appendChild(dayEl);
+      }
+
+      // Add placeholders after last day of month to fill grid (so grid stays consistent)
+      const totalCells = firstDayOfMonth + daysInMonth;
+      const remainder = totalCells % 7;
+      if (remainder !== 0) {
+        const placeholdersNeeded = 7 - remainder;
+        for (let i = 0; i < placeholdersNeeded; i++) {
+          const empty = document.createElement("div");
+          empty.className = "day placeholder";
+          calendarEl.appendChild(empty);
+        }
+      }
+    }
+
+    // Update calendar when month or year changes
+    function updateCalendarFromSelects() {
+      const selectedYear = parseInt(yearSelect.value);
+      const selectedMonth = parseInt(monthSelect.value);
+      currentDate = new Date(selectedYear, selectedMonth, 1);
+      renderCalendar(currentDate);
+    }
+
+    // Initialization
+    populateMonthSelect();
+    populateYearSelect();
+
+    // Set selects to current date
+    monthSelect.value = currentDate.getMonth();
+    yearSelect.value = currentDate.getFullYear();
+
+    // Add event listeners
+    monthSelect.addEventListener("change", updateCalendarFromSelects);
+    yearSelect.addEventListener("change", updateCalendarFromSelects);
+
+    // Initial render
+    renderCalendar(currentDate);
+  </script>
+<script>
+  async function loadNavbar() {
+    const response = await fetch('navbar.html');
+    if (response.ok) {
+      const navbarHtml = await response.text();
+      document.getElementById('navbar').innerHTML = navbarHtml;
+      attachNavbarEvents();
+    } else {
+      console.error('Failed to load navbar:', response.status);
+    }
+  }
+
+  function attachNavbarEvents() {
+    // Example: contacts button event
+    document.getElementById('contactBtn').addEventListener('click', () => {
+      alert('Contact us at contact@school.edu or call 123-456-7890');
+    });
+
+    // Example: accessibility button event - toggle high contrast mode
+    document.getElementById('accessibilityBtn').addEventListener('click', () => {
+      document.body.classList.toggle('high-contrast');
+      // You could add more accessibility toggles here (larger font, screen reader ARIA tweaks, etc.)
+    });
+  }
+
+  loadNavbar();
+</script>
+</body>
+</html>
