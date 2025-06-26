@@ -1,8 +1,9 @@
 /* Base body styles */
 body {
   font-family: Arial, sans-serif;
-  margin: 0; /* Remove default margin to avoid gaps */
-  background-color: f0f0f0;
+  margin: 0;
+  background-color: #f0f0f0;
+  overflow-x: hidden;
 }
 
 /* Sticky navbar */
@@ -10,14 +11,13 @@ body {
   position: sticky;
   top: 0;
   width: 100%;
-  background-color: #003366; /* Or whatever background you want for the navbar */
-  z-index: 1000; /* Stay on top */
-  margin: 0;      /* No margin */
-  padding: 0;     /* No padding */
+  background-color: #003366;
+  z-index: 1000;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-/* If navbar.html content uses a container div or nav element, ensure it also has no side padding/margin */
 #navbar > * {
   margin: 0;
   padding: 0;
@@ -27,36 +27,45 @@ body {
 h2 {
   text-align: center;
   margin: 20px 0 30px 0;
-  color: black; /* Optional: better contrast over background image */
+  color: black;
 }
 
-/* Grid layout for blocks */
+/* Grid layout */
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 5% 5%;
+  grid-template-columns: repeat(4, 1fr);  /* 4 columns by default */
+  gap: 20px;
   justify-items: center;
-  padding: 0 10px;
+  padding: 0 20px 40px 20px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-@media (max-width: 800px) {
+/* iPad Landscape or medium screens (approx < 1024px) */
+@media screen and (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Phones and small screens */
+@media screen and (max-width: 700px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 400px) {
+@media screen and (max-width: 420px) {
   .grid {
     grid-template-columns: 1fr;
   }
 }
 
-/* Entire clickable block (now an <a>) */
+/* Block card styling */
 .block {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 1 / 1;
   border: 4px solid #000000;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   border-radius: 8px;
@@ -64,24 +73,21 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  text-decoration: none;  /* Remove underline from <a> */
+  text-decoration: none;
   transition: transform 0.2s;
-  background-color: white; /* make sure label stands out */
+  background-color: white;
 }
 
-/* Slight zoom effect on hover */
 .block:hover {
   transform: scale(1.02);
 }
 
-/* Image inside the block */
 .block img {
   width: 100%;
   height: 70%;
   object-fit: cover;
 }
 
-/* Label area inside the block */
 .block-label {
   height: 30%;
   background-color: #003366;
@@ -92,15 +98,14 @@ h2 {
   justify-content: center;
   font-weight: bold;
   transition: background-color 0.3s ease;
-  user-select: none; /* prevent text selection */
+  user-select: none;
 }
 
-/* Hover effect for label */
 .block:hover .block-label {
   background-color: #ff0000;
 }
 
-/* Optional: High Contrast mode toggled by accessibility button */
+/* High contrast toggle */
 body.high-contrast {
   background-color: black;
   color: white;
@@ -115,19 +120,19 @@ body.high-contrast .block:hover .block-label {
   background-color: orange;
 }
 
+/* Back button */
 .back-button {
-  width: 40px;                   /* Size of the back image */
+  width: 40px;
   height: 40px;
   background-image: url('back.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
-
-  position: fixed;              /* Fixes it to the screen, not the document flow */
-  top: 20px;                    /* Padding from top */
-  left: 20px;                   /* Padding from left */
-  z-index: 1000;                /* Keeps it on top of other elements */
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
 }
 
 .back-button:hover {
