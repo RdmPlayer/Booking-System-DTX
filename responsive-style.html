@@ -1,0 +1,43 @@
+<!-- meta-and-style.html -->
+<!-- To be pasted inside <head> of each page -->
+
+<!-- Viewport for responsive scaling on mobile -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Optional: Prevent pinch-zooming if not needed -->
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> -->
+
+<!-- Normalize some spacing and prevent text zoom bugs on iOS -->
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-text-size-adjust: 100%; /* Prevent font size scaling on iOS */
+  }
+
+  *, *::before, *::after {
+    box-sizing: inherit;
+  }
+
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Make buttons, labels, and inputs scale well on small screens */
+  button, input, textarea, select {
+    font-size: 1rem;
+    max-width: 100%;
+  }
+
+  /* Optional: Prevent horizontal scrolling */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Optional: Improve tap targets on touchscreens */
+  button, .time-slot, .block, .carousel-button {
+    touch-action: manipulation;
+  }
+</style>
