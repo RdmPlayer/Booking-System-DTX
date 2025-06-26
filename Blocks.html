@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Select Block</title>
+  <link rel="stylesheet" href="style2.css" />
+<script>
+  // Load shared responsive CSS
+  async function loadResponsiveStyle() {
+    try {
+      const res = await fetch('responsive-style.html');
+      const html = await res.text();
+      const fragment = document.createRange().createContextualFragment(html);
+      document.head.appendChild(fragment);
+    } catch (err) {
+      console.error('Failed to load responsive-style.html:', err);
+    }
+  }
+
+  loadResponsiveStyle();
+</script>
+  <style>
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+  <h2>Select a Block</h2>
+  <div class="grid">
+    <a class="block" href="b-block1.html">
+      <img src="b-block.jpg" alt="B-Block" />
+      <div class="block-label">B-Block</div>
+    </a>
+    <a class="block" href="c-block1.html">
+      <img src="c-block.jpg" alt="C-Block" />
+      <div class="block-label">C-Block</div>
+    </a>
+    <a class="block" href="d-block1.html">
+      <img src="d-block.jpg" alt="D-Block" />
+      <div class="block-label">D-Block</div>
+    </a>
+    <a class="block" href="e-block1.html">
+      <img src="e-block.jpg" alt="E-Block" />
+      <div class="block-label">E-Block</div>
+    </a>
+    <a class="block" href="f-block1.html">
+      <img src="f-block.jpg" alt="F-Block" />
+      <div class="block-label">F-Block</div>
+    </a>
+    <a class="block" href="i-block1.html">
+      <img src="i-block.jpg" alt="I-Block" />
+      <div class="block-label">I-Block</div>
+    </a>
+    <a class="block" href="j-block1.html">
+      <img src="j-block.jpg" alt="J-Block" />
+      <div class="block-label">J-Block</div>
+    </a>
+    <a class="block" href="t-block1.html">
+      <img src="t-block.jpg" alt="T-Block" />
+      <div class="block-label">T-Block</div>
+    </a>
+    <a class="block" href="s-block1.html">
+      <img src="s-block.jpg" alt="S-Block" />
+      <div class="block-label">S-Block</div>
+    </a>
+  </div>
+
+  <script>
+    async function loadNavbar() {
+      const response = await fetch('navbar.html');
+      if (response.ok) {
+        const navbarHtml = await response.text();
+        document.getElementById('navbar').innerHTML = navbarHtml;
+        attachNavbarEvents();
+      } else {
+        console.error('Failed to load navbar:', response.status);
+      }
+    }
+
+    function attachNavbarEvents() {
+      // Example: contacts button event
+      document.getElementById('contactBtn').addEventListener('click', () => {
+        alert('Contact us at contact@school.edu or call 123-456-7890');
+      });
+
+      // Example: accessibility button event - toggle high contrast mode
+      document.getElementById('accessibilityBtn').addEventListener('click', () => {
+        document.body.classList.toggle('high-contrast');
+        // You could add more accessibility toggles here (larger font, screen reader ARIA tweaks, etc.)
+      });
+    }
+
+    loadNavbar();
+  </script>
+</body>
+</html>
