@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>T-Block Rooms</title>
+  <link rel="stylesheet" href="style1.css">
+<script>
+  // Load shared responsive CSS
+  async function loadResponsiveStyle() {
+    try {
+      const res = await fetch('responsive-style.html');
+      const html = await res.text();
+      const fragment = document.createRange().createContextualFragment(html);
+      document.head.appendChild(fragment);
+    } catch (err) {
+      console.error('Failed to load responsive-style.html:', err);
+    }
+  }
+
+  loadResponsiveStyle();
+</script>
+</head>
+<body>
+  <div id="navbar"></div>
+  <div class="container">
+    <div class="back-button" onclick="history.back()"></div>
+    <!-- Left Panel: Buttons -->
+    <div class="left-panel">
+      <h2>Select a Room in B-Block</h2>
+      <div class="button-group">
+        <button onclick="window.location.href='calendar.html?room=T1'">T1</button>
+        <button onclick="window.location.href='calendar.html?room=T2'">T2</button>
+        <button onclick="window.location.href='calendar.html?room=T3'">T3</button>
+        <button onclick="window.location.href='calendar.html?room=T4'">T4</button>
+        <button onclick="window.location.href='calendar.html?room=T5'">T5</button>
+        <button onclick="window.location.href='calendar.html?room=T6'">T6</button>
+        <button onclick="window.location.href='calendar.html?room=T7'">T7</button>
+      </div>
+    </div>
+
+    <!-- Right Panel: Image Carousel -->
+    <div class="right-panel">
+      <div class="carousel">
+        <button class="carousel-button left" onclick="prevImage()">&#10094;</button>
+        <img src="t1.jpg" class="active" alt="T1">
+        <img src="t2.jpg" alt="T2">
+        <img src="t3.jpg" alt="T3">
+        <img src="t4.jpg" alt="T4">
+        <img src="t5.jpg" alt="T5">
+        <img src="t6.jpg" alt="T6">
+        <img src="t7.jpg" alt="T7">
+        <button class="carousel-button right" onclick="nextImage()">&#10095;</button>
+      </div>
+    </div>
+  </div>
+
+<button class="t1-button" onclick="highlightButton(this); window.location.href='T1Calendar.html'">T1</button>
+
+<script>
+  function highlightButton(button) {
+    button.style.backgroundColor = 'red';
+    button.style.color = 'white';
+  }
+</script>
+
+  <script>
+    const images = document.querySelectorAll('.carousel img');
+    let currentIndex = 0;
+
+    function showImage(index) {
+      images.forEach((img, i) => {
+        img.classList.toggle('active', i === index);
+      });
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      showImage(currentIndex);
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % images.length;
+      showImage(currentIndex);
+    }
+  </script>
+<script>
+  async function loadNavbar() {
+    const response = await fetch('navbar.html');
+    if (response.ok) {
+      const navbarHtml = await response.text();
+      document.getElementById('navbar').innerHTML = navbarHtml;
+      attachNavbarEvents();
+    } else {
+      console.error('Failed to load navbar:', response.status);
+    }
+  }
+
+  function attachNavbarEvents() {
+    // Example: contacts button event
+    document.getElementById('contactBtn').addEventListener('click', () => {
+      alert('Contact us at contact@school.edu or call 123-456-7890');
+    });
+
+    // Example: accessibility button event - toggle high contrast mode
+    document.getElementById('accessibilityBtn').addEventListener('click', () => {
+      document.body.classList.toggle('high-contrast');
+      // You could add more accessibility toggles here (larger font, screen reader ARIA tweaks, etc.)
+    });
+  }
+
+  loadNavbar();
+</script>
+</body>
+</html>
