@@ -124,7 +124,7 @@ body {
   color: white;
 }
 
-/* Back Button (Updated) */
+/* Back Button (Updated: fixed but moved further away) */
 .back-button {
   width: 80px;
   height: 80px;
@@ -134,7 +134,7 @@ body {
   background-position: center;
   cursor: pointer;
   position: fixed;
-  top: 20px; /* Moved to top of page */
+  top: 20px;
   left: 20px;
   z-index: 1000;
 }
@@ -143,12 +143,16 @@ body {
   opacity: 0.8;
 }
 
-/* Contact Container (Updated) */
+/* Contact Container (Give enough padding to push content away from the button) */
 .contact-container {
   padding: 40px;
   max-width: 800px;
-  margin: 100px auto 40px auto; /* Added top margin to clear the back button */
+  margin: auto;
   font-size: 1.1rem;
+
+  /* Add padding to top and left to create space for the back button */
+  padding-top: 120px; /* 80px button + 20px + 20px extra space */
+  padding-left: 120px; /* Left side padding to avoid overlap */
 }
 
 .contact-container h1 {
@@ -191,9 +195,11 @@ body {
     width: 90%;
   }
 
-  /* Extra top margin to avoid overlap on small screens and landscape */
+  /* Increase padding even more on smaller screens to avoid overlap */
   .contact-container {
-    margin-top: 140px; /* More space for back button in landscape or mobile view */
-    padding: 20px;
+    padding-top: 160px; /* Extra padding in case the button takes more space */
+    padding-left: 140px;
+    padding-right: 20px;
+    padding-bottom: 20px;
   }
 }
