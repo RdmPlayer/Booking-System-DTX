@@ -1,81 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
   <title>Contact Us</title>
   <link rel="stylesheet" href="style3.css" />
-<script>
-  // Load shared responsive CSS
-  async function loadResponsiveStyle() {
-    try {
-      const res = await fetch('responsive-style.html');
-      const html = await res.text();
-      const fragment = document.createRange().createContextualFragment(html);
-      document.head.appendChild(fragment);
-    } catch (err) {
-      console.error('Failed to load responsive-style.html:', err);
-    }
-  }
-
-  loadResponsiveStyle();
-</script>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
+  <script>
+    // Load shared responsive CSS
+    async function loadResponsiveStyle() {
+      try {
+        const res = await fetch('responsive-style.html');
+        const html = await res.text();
+        const fragment = document.createRange().createContextualFragment(html);
+        document.head.appendChild(fragment);
+      } catch (err) {
+        console.error('Failed to load responsive-style.html:', err);
+      }
     }
 
-    .contact-container {
-      padding: 40px;
-      max-width: 800px; /* Increased width */
-      margin: auto;
-      font-size: 1.1rem; /* Slightly larger text */
-    }
-
-    .contact-container h1 {
-      color: #003366;
-      margin-bottom: 10px;
-      font-size: 2rem; /* Larger heading */
-    }
-
-    .contact-container h2 {
-      font-size: 1.4rem;
-      margin-top: 25px;
-    }
-
-    .contact-container p {
-      margin-top: 10px;
-      line-height: 1.6; /* Helps vertical spacing */
-    }
-
-    .contact-container a {
-      color: #c42026;
-      text-decoration: none;
-    }
-
-    .contact-container a:hover {
-      text-decoration: underline;
-    }
-  </style>
+    loadResponsiveStyle();
+  </script>
 </head>
 
 <body>
+  <!-- Navbar -->
   <div id="navbar"></div>
-  <div class="back-button" role="button" aria-label="Go Back" onclick="history.back()"></div>
-  <main class="contact-container">
-    <h1>Contact Us</h1>
-    <p>Have questions or need support? Reach out to us!</p>
 
-    <section>
-      <h2>Staff Members</h2>
-      <p>If you wish to contact a staff member, you may contact reception at +6478540010</p>
+  <!-- Back Button -->
+  <div class="back-button" role="button" aria-label="Go Back" tabindex="0"
+       onclick="history.back()"
+       onkeydown="if(event.key === 'Enter' || event.key === ' ') history.back();">
+  </div>
 
-      <h2>Address</h2>
-      <p>1 Micah Place, Rototuna, Hamilton, 3210</p>
-    </section>
-  </main>
+  <!-- Contact Content Wrapper (New!) -->
+  <div class="contact-wrapper">
+    <main class="contact-container">
+      <h1>Contact Us</h1>
+      <p>Have questions or need support? Reach out to us!</p>
+
+      <section>
+        <h2>Staff Members</h2>
+        <p>If you wish to contact a staff member, you may contact reception at 
+          <a href="tel:+6478540010">+6478540010</a>
+        </p>
+
+        <h2>Address</h2>
+        <p>
+          <a href="https://www.google.com/maps/place/1+Micah+Place,+Rototuna,+Hamilton,+3210" target="_blank">
+            1 Micah Place, Rototuna, Hamilton, 3210
+          </a>
+        </p>
+      </section>
+    </main>
+  </div>
 
   <script>
     async function loadNavbar() {
