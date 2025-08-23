@@ -10,39 +10,45 @@
 
 <div id="navbar"></div>
 
-<div class="back-button" role="button" tabindex="0"
-     onclick="history.back()"
-     onkeydown="if(event.key==='Enter'||event.key===' ') history.back();"></div>
-
-<div class="container">
-  <div class="left-panel">
-    <h2>Select a Room in B-Block</h2>
-    <div class="button-group">
-      <button onclick="window.location.href='calendar.html?room=B1'">B1</button>
-      <button onclick="window.location.href='calendar.html?room=B2'">B2</button>
-      <button onclick="window.location.href='calendar.html?room=B3'">B3</button>
-      <button onclick="window.location.href='calendar.html?room=B4'">B4</button>
-      <button onclick="window.location.href='calendar.html?room=B5'">B5</button>
-    </div>
+<div class="page-wrapper">
+  <!-- Back Button -->
+  <div class="back-button" role="button" tabindex="0"
+       onclick="history.back()"
+       onkeydown="if(event.key==='Enter'||event.key===' ') history.back();">
   </div>
 
-  <div class="right-panel">
-    <div class="carousel">
-      <div class="carousel-slide">
-        <button class="carousel-button left" onclick="prevImage()">&#10094;</button>
-        <img src="https://raw.githubusercontent.com/RdmPlayer/Booking-System/main/b1a.jpg" class="active" alt="B1">
-        <img src="b2a.jpg" alt="B2">
-        <img src="b3a.jpg" alt="B3">
-        <img src="b4a.jpg" alt="B4">
-        <img src="b5a.jpg" alt="B5">
-        <button class="carousel-button right" onclick="nextImage()">&#10095;</button>
+  <div class="container">
+    <!-- Left Panel: Buttons -->
+    <div class="left-panel">
+      <h2>Select a Room in B-Block</h2>
+      <div class="button-group">
+        <button onclick="window.location.href='calendar.html?room=B1'">B1</button>
+        <button onclick="window.location.href='calendar.html?room=B2'">B2</button>
+        <button onclick="window.location.href='calendar.html?room=B3'">B3</button>
+        <button onclick="window.location.href='calendar.html?room=B4'">B4</button>
+        <button onclick="window.location.href='calendar.html?room=B5'">B5</button>
+      </div>
+    </div>
+
+    <!-- Right Panel: Carousel -->
+    <div class="right-panel">
+      <div class="carousel">
+        <div class="carousel-slide">
+          <button class="carousel-button left" onclick="prevImage()">&#10094;</button>
+          <img src="https://raw.githubusercontent.com/RdmPlayer/Booking-System/main/b1a.jpg" class="active" alt="B1">
+          <img src="b2a.jpg" alt="B2">
+          <img src="b3a.jpg" alt="B3">
+          <img src="b4a.jpg" alt="B4">
+          <img src="b5a.jpg" alt="B5">
+          <button class="carousel-button right" onclick="nextImage()">&#10095;</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-// Carousel
+// Carousel logic
 const images = document.querySelectorAll('.carousel-slide img');
 let currentIndex = 0;
 function showImage(i){ images.forEach((img,j)=>img.classList.toggle('active', i===j)); }
@@ -50,20 +56,16 @@ function prevImage(){ currentIndex=(currentIndex-1+images.length)%images.length;
 function nextImage(){ currentIndex=(currentIndex+1)%images.length; showImage(currentIndex); }
 
 // Navbar
-async function loadNavbar(){
+async function loadNavbar() {
   const navbar = document.getElementById('navbar');
-  try{
+  try {
     const res = await fetch('navbar.html');
-    if(!res.ok) throw new Error(res.status);
+    if (!res.ok) throw new Error(res.status);
     navbar.innerHTML = await res.text();
-
-    requestAnimationFrame(()=>{ document.body.style.paddingTop = (navbar.offsetHeight + 10) + 'px'; });
-    window.addEventListener('resize', ()=>{ document.body.style.paddingTop = (navbar.offsetHeight + 10) + 'px'; });
 
     document.getElementById('contactBtn')?.addEventListener('click', ()=>alert('Contact us at contact@school.edu'));
     document.getElementById('accessibilityBtn')?.addEventListener('click', ()=>document.body.classList.toggle('high-contrast'));
-
-  }catch(err){ console.error('Navbar load failed:', err); }
+  } catch(err){ console.error('Navbar load failed:', err); }
 }
 loadNavbar();
 </script>
