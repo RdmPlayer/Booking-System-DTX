@@ -1,24 +1,30 @@
-/* Base Styles */
+/* ===== Base Styles ===== */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0; /* Will be dynamically updated for navbar */
+  padding: 0; /* Will be dynamically offset by navbar height */
   overflow-x: hidden;
 }
 
-/* Sticky Navbar */
+/* ===== Navbar ===== */
 #navbar {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #003366;
   z-index: 1000;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
 
-/* Back Button */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #003366;
+  color: white;
+  height: 60px; /* ensure offset works */
+}
+
+/* ===== Back Button ===== */
 .back-button {
   width: 80px;
   height: 80px;
@@ -37,15 +43,15 @@ body {
   opacity: 0.8;
 }
 
-/* Contact Page Styles */
+/* ===== Contact Page ===== */
 .contact-container {
   max-width: 800px;
   margin: 30px auto;
   padding: 40px;
   background-color: #ffffff;
   border-radius: 8px;
-  border: 2px solid #003366; /* Highlight border */
-  box-shadow: 0 0 20px rgba(0,102,204,0.3); /* subtle glow */
+  border: 2px solid #003366;
+  box-shadow: 0 0 10px rgba(0,102,204,0.3);
   font-size: 1.1rem;
 }
 
@@ -74,7 +80,7 @@ body {
   text-decoration: underline;
 }
 
-/* B-block Page Styles */
+/* ===== B-Block Page ===== */
 .container {
   display: flex;
   min-height: 100vh;
@@ -176,7 +182,7 @@ body {
 .carousel-button.left { left: 10px; }
 .carousel-button.right { right: 10px; }
 
-/* Responsive */
+/* ===== Responsive ===== */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
