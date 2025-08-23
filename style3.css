@@ -10,11 +10,12 @@ body {
   line-height: 1.6;
   background-color: #f9f9f9;
   color: #333;
+  overflow-x: hidden;
 }
 
-/* Sticky navbar */
+/* Sticky navbar (fixed) */
 #navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
   width: 100%;
   background-color: #003366;
@@ -24,21 +25,21 @@ body {
   box-sizing: border-box;
 }
 
-/* Wrapper to offset navbar height dynamically */
+/* Contact wrapper hidden initially to avoid overlap */
 .contact-wrapper {
-  visibility: hidden; /* hide initially */
-  padding-top: 120px; /* safe default until JS sets exact padding */
+  visibility: hidden;
+  padding-top: 120px; /* fallback until JS sets exact navbar height */
   transition: padding-top 0.2s ease;
 }
 
-/* Main container layout */
+/* Main contact container */
 .contact-container {
   max-width: 800px;
   margin: 0 auto;
   padding: 40px;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
   font-size: 1.1rem;
 }
 
@@ -67,76 +68,26 @@ body {
   text-decoration: underline;
 }
 
-/* Contact info and form */
-.contact-info {
-  flex: 1 1 300px;
-  padding: 20px;
-}
-
-.contact-info h1 {
-  color: #003366;
-  margin-bottom: 20px;
-}
-
-.contact-info h2 {
-  font-size: 18px;
-  margin: 15px 0 5px;
-}
-
-.contact-info a {
-  color: #c42026;
-  text-decoration: none;
-}
-
-.contact-info a:hover {
-  text-decoration: underline;
-}
-
-.contact-info p {
-  margin-bottom: 10px;
-}
-
-form {
-  margin-top: 20px;
-}
-
-form label {
-  display: block;
-  margin: 10px 0 5px;
-}
-
-form input,
-form textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-form textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-form button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  background-color: #003366;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
+/* Back button */
+.back-button {
+  width: 80px;
+  height: 80px;
+  background-image: url('back.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   cursor: pointer;
+  position: fixed;
+  top: 110px; /* optional, can adjust via JS if needed */
+  left: 20px;
+  z-index: 1000;
 }
 
-form button:hover {
-  background-color: #002244;
+.back-button:hover {
+  opacity: 0.8;
 }
 
-.contact-map {
-  flex: 1 1 300px;
-  padding: 20px;
-}
-
+/* Responsive map */
 .contact-map iframe,
 .contact-map img {
   width: 100%;
@@ -150,23 +101,4 @@ form button:hover {
   .contact-map img {
     height: 200px;
   }
-}
-
-/* Back Button */
-.back-button {
-  width: 80px;
-  height: 80px;
-  background-image: url('back.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  cursor: pointer;
-  position: fixed;
-  top: 110px;
-  left: 20px;
-  z-index: 1000;
-}
-
-.back-button:hover {
-  opacity: 0.8;
 }
