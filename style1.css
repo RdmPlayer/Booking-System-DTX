@@ -18,26 +18,43 @@ body {
   box-sizing: border-box;
 }
 
-/* Main Wrapper */
-.block-wrapper {
-  visibility: hidden;
-  padding-top: 120px; /* fallback, JS sets actual height */
+/* Generic Page Wrapper */
+.page-wrapper {
+  visibility: hidden;       /* initially hidden until navbar loads */
+  padding-top: 120px;       /* fallback, JS will adjust */
   transition: padding-top 0.2s ease;
 }
 
-/* Main Container */
+/* Back Button */
+.back-button {
+  width: 80px;
+  height: 80px;
+  background-image: url('back.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  position: fixed;
+  top: 110px; /* JS will adjust wrapper padding; back button remains fixed */
+  left: 20px;
+  z-index: 1000;
+}
+
+.back-button:hover {
+  opacity: 0.8;
+}
+
+/* Left and Right Panels (Block Pages) */
 .container {
   display: flex;
   height: 100vh;
 }
 
-/* Left Panel */
 .left-panel {
   width: 50%;
   background-color: #f0f0f0;
   padding: 20px;
   box-sizing: border-box;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -50,7 +67,6 @@ body {
   text-align: center;
 }
 
-/* Button Group */
 .button-group {
   display: flex;
   flex-direction: column;
@@ -73,7 +89,6 @@ body {
   background-color: #0055a5;
 }
 
-/* Right Panel and Carousel */
 .right-panel {
   width: 50%;
   background-color: #f0f0f0;
@@ -110,7 +125,6 @@ body {
   display: block;
 }
 
-/* Carousel Buttons */
 .carousel-button {
   position: absolute;
   top: 50%;
@@ -130,34 +144,46 @@ body {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-.carousel-button.left {
-  left: 10px;
+.carousel-button.left { left: 10px; }
+.carousel-button.right { right: 10px; }
+
+/* Contact Page */
+.contact-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  font-size: 1.1rem;
 }
 
-.carousel-button.right {
-  right: 10px;
+.contact-container h1 {
+  color: #003366;
+  margin-bottom: 10px;
+  font-size: 2rem;
 }
 
-/* Back Button */
-.back-button {
-  width: 80px;
-  height: 80px;
-  background-image: url('back.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  cursor: pointer;
-  position: fixed;
-  top: 110px;
-  left: 20px;
-  z-index: 1000;
+.contact-container h2 {
+  font-size: 1.4rem;
+  margin-top: 25px;
 }
 
-.back-button:hover {
-  opacity: 0.8;
+.contact-container p {
+  margin-top: 10px;
+  line-height: 1.6;
 }
 
-/* Responsive Design */
+.contact-container a {
+  color: #c42026;
+  text-decoration: none;
+}
+
+.contact-container a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -170,5 +196,9 @@ body {
 
   .button-group {
     width: 90%;
+  }
+
+  .contact-container {
+    padding: 20px;
   }
 }
