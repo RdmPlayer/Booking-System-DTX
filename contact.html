@@ -30,7 +30,6 @@
 </main>
 
 <script>
-// Load navbar and dynamically set body padding
 async function loadNavbar(){
   const navbar = document.getElementById('navbar');
   try {
@@ -38,17 +37,18 @@ async function loadNavbar(){
     if(!res.ok) throw new Error(res.status);
     navbar.innerHTML = await res.text();
 
-    // Buttons
+    // Wait until navbar is rendered
+    requestAnimationFrame(()=>{
+      document.body.style.paddingTop = navbar.offsetHeight + 'px';
+    });
+
+    window.addEventListener('resize', ()=> {
+      document.body.style.paddingTop = navbar.offsetHeight + 'px';
+    });
+
+    // Add navbar button events
     document.getElementById('contactBtn')?.addEventListener('click', ()=>alert('Contact us at contact@school.edu'));
     document.getElementById('accessibilityBtn')?.addEventListener('click', ()=>document.body.classList.toggle('high-contrast'));
-
-    // Set body padding to navbar height
-    function adjustPadding(){
-      document.body.style.paddingTop = navbar.offsetHeight + 10 + 'px';
-    }
-
-    adjustPadding();
-    window.addEventListener('resize', adjustPadding);
 
   } catch(err){ console.error('Navbar load failed:', err); }
 }
