@@ -12,8 +12,9 @@ body {
   color: #333;
 }
 
+/* Sticky navbar */
 #navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
   width: 100%;
   background-color: #003366;
@@ -23,17 +24,15 @@ body {
   box-sizing: border-box;
 }
 
-#navbar > * {
-  margin: 0;
-  padding: 0;
+/* Wrapper to offset navbar height dynamically */
+.contact-wrapper {
+  padding-top: 0; /* initial; updated dynamically via JS */
 }
 
-/* Main container layout — FIXED */
+/* Main container layout */
 .contact-container {
-  /* Removed: display: flex; */
-  /* Removed: flex-wrap: wrap; */
   max-width: 800px;
-  margin: 30px auto;
+  margin: 0 auto;
   padding: 40px;
   background-color: #fff;
   border-radius: 8px;
@@ -66,7 +65,7 @@ body {
   text-decoration: underline;
 }
 
-/* The rest of your original styles */
+/* Contact info and form */
 .contact-info {
   flex: 1 1 300px;
   padding: 20px;
@@ -145,10 +144,6 @@ form button:hover {
 }
 
 @media (max-width: 768px) {
-  .contact-container {
-    /* flex-direction removed because flex is removed */
-  }
-
   .contact-map iframe,
   .contact-map img {
     height: 200px;
