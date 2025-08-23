@@ -20,7 +20,7 @@ body {
 
 /* Page Wrapper */
 .page-wrapper {
-  visibility: hidden; /* initially hidden, will show after JS adjustment */
+  visibility: hidden; /* Initially hidden until JS positions it */
 }
 
 /* Back Button */
@@ -45,7 +45,7 @@ body {
 /* Left & Right Panels (Block Pages) */
 .container {
   display: flex;
-  min-height: 100vh; /* JS adjusts marginTop dynamically */
+  min-height: 100vh;
 }
 
 .left-panel {
