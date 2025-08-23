@@ -10,9 +10,11 @@
   display: flex;                   /* Flex layout */
   justify-content: space-between;   /* Left & right items spread out */
   align-items: center;             /* Vertically center items */
-  padding: 0 20px;                 /* Space on left and right edges */
+  padding: 0 25px;                 /* Extra space on left and right edges */
   box-sizing: border-box;
-  overflow-x: auto;                /* Avoid cutting off items on small screens */
+
+  overflow-x: visible;             /* Ensure right-most items are visible */
+  white-space: nowrap;             /* Prevent buttons from wrapping */
 }
 
 .page-wrapper {
