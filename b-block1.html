@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>B-Block Rooms</title>
-<link rel="stylesheet" href="style1.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -25,6 +25,7 @@
       <button onclick="window.location.href='calendar.html?room=B5'">B5</button>
     </div>
   </div>
+
   <div class="right-panel">
     <div class="carousel">
       <div class="carousel-slide">
@@ -51,10 +52,21 @@ function nextImage(){ currentIndex=(currentIndex+1)%images.length; showImage(cur
 // Navbar
 async function loadNavbar(){
   const navbar = document.getElementById('navbar');
-  try {
+  try{
     const res = await fetch('navbar.html');
     if(!res.ok) throw new Error(res.status);
     navbar.innerHTML = await res.text();
 
+    requestAnimationFrame(()=>{ document.body.style.paddingTop = navbar.offsetHeight + 'px'; });
+    window.addEventListener('resize', ()=>{ document.body.style.paddingTop = navbar.offsetHeight + 'px'; });
+
     document.getElementById('contactBtn')?.addEventListener('click', ()=>alert('Contact us at contact@school.edu'));
-    document.getElement
+    document.getElementById('accessibilityBtn')?.addEventListener('click', ()=>document.body.classList.toggle('high-contrast'));
+
+  }catch(err){ console.error('Navbar load failed:', err); }
+}
+loadNavbar();
+</script>
+
+</body>
+</html>
