@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Contact Us</title>
-  <link rel="stylesheet" href="style3.css" />
+  <link rel="stylesheet" href="style3.css">
   <script>
     // Load shared responsive CSS
     async function loadResponsiveStyle() {
@@ -17,7 +16,6 @@
         console.error('Failed to load responsive-style.html:', err);
       }
     }
-
     loadResponsiveStyle();
   </script>
 </head>
@@ -62,10 +60,12 @@
         navbarElement.innerHTML = await response.text();
         attachNavbarEvents();
 
-        // Adjust padding-top after navbar has fully rendered
+        // Wait until navbar renders fully
         requestAnimationFrame(() => {
           const navbarHeight = navbarElement.offsetHeight;
-          document.querySelector('.contact-wrapper').style.paddingTop = navbarHeight + 'px';
+          const wrapper = document.querySelector('.contact-wrapper');
+          wrapper.style.paddingTop = navbarHeight + 'px';
+          wrapper.style.visibility = 'visible'; // show content after layout
         });
       } else {
         console.error('Failed to load navbar:', response.status);
@@ -84,10 +84,11 @@
 
     loadNavbar();
 
-    // Recalculate padding if window is resized
+    // Adjust on window resize
     window.addEventListener('resize', () => {
       const navbarHeight = document.getElementById('navbar').offsetHeight;
-      document.querySelector('.contact-wrapper').style.paddingTop = navbarHeight + 'px';
+      const wrapper = document.querySelector('.contact-wrapper');
+      wrapper.style.paddingTop = navbarHeight + 'px';
     });
   </script>
 </body>
