@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>B-Block Rooms</title>
 <link rel="stylesheet" href="style1.css">
 
 <script>
-  // Load shared responsive CSS
   async function loadResponsiveStyle() {
     try {
       const res = await fetch('responsive-style.html');
@@ -20,7 +20,6 @@
   loadResponsiveStyle();
 </script>
 </head>
-
 <body>
 
 <!-- Navbar -->
@@ -29,11 +28,11 @@
 <!-- Back Button -->
 <div class="back-button" role="button" aria-label="Go Back" tabindex="0"
      onclick="history.back()"
-     onkeydown="if(event.key === 'Enter' || event.key === ' ') history.back();">
+     onkeydown="if(event.key==='Enter'||event.key===' ') history.back();">
 </div>
 
-<!-- Main Wrapper -->
-<div class="block-wrapper">
+<!-- Page Wrapper -->
+<div class="page-wrapper">
   <div class="container">
     <!-- Left Panel -->
     <div class="left-panel">
@@ -66,63 +65,49 @@
 
 <!-- Carousel JS -->
 <script>
-  const images = document.querySelectorAll('.carousel-slide img');
-  let currentIndex = 0;
+const images = document.querySelectorAll('.carousel-slide img');
+let currentIndex = 0;
 
-  function showImage(index) {
-    images.forEach((img, i) => {
-      img.classList.toggle('active', i === index);
-    });
-  }
+function showImage(index) {
+  images.forEach((img,i) => img.classList.toggle('active', i===index));
+}
 
-  function prevImage() {
-    currentIndex = (currentIndex - 1 + images.length) % images.length;
-    showImage(currentIndex);
-  }
-
-  function nextImage() {
-    currentIndex = (currentIndex + 1) % images.length;
-    showImage(currentIndex);
-  }
+function prevImage() { currentIndex = (currentIndex-1+images.length)%images.length; showImage(currentIndex); }
+function nextImage() { currentIndex = (currentIndex+1)%images.length; showImage(currentIndex); }
 </script>
 
 <!-- Navbar JS -->
 <script>
-  async function loadNavbar() {
-    const response = await fetch('navbar.html');
-    if (response.ok) {
-      const navbarElement = document.getElementById('navbar');
-      navbarElement.innerHTML = await response.text();
-      attachNavbarEvents();
+async function loadNavbar() {
+  const response = await fetch('navbar.html');
+  if(response.ok){
+    const navbarElement = document.getElementById('navbar');
+    navbarElement.innerHTML = await response.text();
+    attachNavbarEvents();
 
-      // Immediately set wrapper padding and reveal content
-      const wrapper = document.querySelector('.block-wrapper');
+    // Reveal page wrapper and set padding
+    const wrapper = document.querySelector('.page-wrapper');
+    if(wrapper){
       const navbarHeight = navbarElement.offsetHeight;
       wrapper.style.paddingTop = navbarHeight + 'px';
       wrapper.style.visibility = 'visible';
-    } else {
-      console.error('Failed to load navbar:', response.status);
     }
-  }
+  } else { console.error('Failed to load navbar:', response.status); }
+}
 
-  function attachNavbarEvents() {
-    document.getElementById('contactBtn')?.addEventListener('click', () => {
-      alert('Contact us at contact@school.edu or call 123-456-7890');
-    });
+function attachNavbarEvents(){
+  document.getElementById('contactBtn')?.addEventListener('click',()=>alert('Contact us at contact@school.edu or call 123-456-7890'));
+  document.getElementById('accessibilityBtn')?.addEventListener('click',()=>document.body.classList.toggle('high-contrast'));
+}
 
-    document.getElementById('accessibilityBtn')?.addEventListener('click', () => {
-      document.body.classList.toggle('high-contrast');
-    });
-  }
+loadNavbar();
 
-  loadNavbar();
-
-  // Adjust padding on window resize
-  window.addEventListener('resize', () => {
-    const navbarHeight = document.getElementById('navbar').offsetHeight;
-    const wrapper = document.querySelector('.block-wrapper');
-    wrapper.style.paddingTop = navbarHeight + 'px';
-  });
+// Adjust wrapper padding on resize
+window.addEventListener('resize', ()=>{
+  const navbarHeight = document.getElementById('navbar')?.offsetHeight || 0;
+  const wrapper = document.querySelector('.page-wrapper');
+  if(wrapper) wrapper.style.paddingTop = navbarHeight + 'px';
+});
 </script>
 
 </body>
