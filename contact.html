@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Contact Us</title>
   <link rel="stylesheet" href="style3.css">
+
   <script>
     // Load shared responsive CSS
     async function loadResponsiveStyle() {
@@ -31,7 +32,7 @@
   </div>
 
   <!-- Contact Content Wrapper -->
-  <div class="contact-wrapper">
+  <div class="contact-wrapper" style="visibility:hidden;">
     <main class="contact-container">
       <h1>Contact Us</h1>
       <p>Have questions or need support? Reach out to us!</p>
@@ -60,8 +61,8 @@
         navbarElement.innerHTML = await response.text();
         attachNavbarEvents();
 
-        // Wait until navbar renders fully
-        requestAnimationFrame(() => {
+        // Wait for the full page load to ensure all fonts/images in navbar are rendered
+        window.addEventListener('load', () => {
           const navbarHeight = navbarElement.offsetHeight;
           const wrapper = document.querySelector('.contact-wrapper');
           wrapper.style.paddingTop = navbarHeight + 'px';
@@ -84,7 +85,7 @@
 
     loadNavbar();
 
-    // Adjust on window resize
+    // Recalculate padding if window is resized
     window.addEventListener('resize', () => {
       const navbarHeight = document.getElementById('navbar').offsetHeight;
       const wrapper = document.querySelector('.contact-wrapper');
