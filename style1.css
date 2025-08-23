@@ -1,30 +1,18 @@
-/* ===== Base Styles ===== */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0; /* Will be dynamically offset by navbar height */
-  overflow-x: hidden;
-}
-
-/* ===== Navbar ===== */
+/* ================== Navbar & Wrapper ================== */
 #navbar {
   position: fixed;
   top: 0;
   width: 100%;
+  height: 60px;
+  background-color: #003366;
   z-index: 1000;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #003366;
-  color: white;
-  height: 60px; /* ensure offset works */
+.page-wrapper {
+  padding-top: 60px; /* offset for navbar */
 }
 
-/* ===== Back Button ===== */
+/* ================== Back Button ================== */
 .back-button {
   width: 80px;
   height: 80px;
@@ -43,12 +31,19 @@ body {
   opacity: 0.8;
 }
 
-/* ===== Contact Page ===== */
+/* ================== Contact Page ================== */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
 .contact-container {
   max-width: 800px;
   margin: 30px auto;
   padding: 40px;
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 8px;
   border: 2px solid #003366;
   box-shadow: 0 0 10px rgba(0,102,204,0.3);
@@ -80,12 +75,16 @@ body {
   text-decoration: underline;
 }
 
-/* ===== B-Block Page ===== */
+/* ================== B-Block Page ================== */
+body.high-contrast { background-color: black; color: white; }
+body.high-contrast .block-label { background-color: yellow; color: black; }
+
 .container {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
 }
 
+/* Left Panel */
 .left-panel {
   width: 50%;
   background-color: #f0f0f0;
@@ -120,45 +119,23 @@ body {
   cursor: pointer;
 }
 
-.button-group button:hover {
-  background-color: #0055a5;
-}
+.button-group button:hover { background-color: #0055a5; }
 
+/* Right Panel Carousel */
 .right-panel {
   width: 50%;
-  background-color: #f0f0f0;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  background-color: #f0f0f0;
 }
 
-.carousel {
-  width: 90%;
-  height: 90%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+.carousel { width: 90%; height: 90%; position: relative; display: flex; align-items: center; justify-content: center; }
+.carousel-slide { position: relative; width: 100%; height: 100%; }
 
-.carousel-slide {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.carousel img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: none;
-  border-radius: 8px;
-}
-
-.carousel img.active {
-  display: block;
-}
+.carousel img { width: 100%; height: 100%; object-fit: cover; display: none; border-radius: 8px; }
+.carousel img.active { display: block; }
 
 .carousel-button {
   position: absolute;
@@ -175,26 +152,13 @@ body {
   transition: background-color 0.2s;
 }
 
-.carousel-button:hover {
-  background-color: rgba(0,0,0,0.7);
-}
-
+.carousel-button:hover { background-color: rgba(0,0,0,0.7); }
 .carousel-button.left { left: 10px; }
 .carousel-button.right { right: 10px; }
 
-/* ===== Responsive ===== */
+/* ================== Responsive ================== */
 @media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
-  .left-panel, .right-panel {
-    width: 100%;
-    height: 50vh;
-  }
-  .button-group {
-    width: 90%;
-  }
-  .contact-container {
-    padding: 20px;
-  }
+  .container { flex-direction: column; }
+  .left-panel, .right-panel { width: 100%; height: 50vh; }
+  .button-group { width: 90%; }
 }
