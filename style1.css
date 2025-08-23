@@ -18,6 +18,13 @@ body {
   box-sizing: border-box;
 }
 
+/* Main Wrapper */
+.block-wrapper {
+  visibility: hidden;
+  padding-top: 120px; /* fallback, JS sets actual height */
+  transition: padding-top 0.2s ease;
+}
+
 /* Main Container */
 .container {
   display: flex;
@@ -31,10 +38,10 @@ body {
   padding: 20px;
   box-sizing: border-box;
 
-  display: flex;               /* Enable flexbox */
-  flex-direction: column;      /* Stack elements vertically */
-  align-items: center;         /* Center content horizontally */
-  justify-content: center;     /* Center content vertically (optional) */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .left-panel h2 {
@@ -141,20 +148,13 @@ body {
   background-position: center;
   cursor: pointer;
   position: fixed;
-  top: 110px; /* will stay below navbar dynamically if needed */
+  top: 110px;
   left: 20px;
   z-index: 1000;
 }
 
 .back-button:hover {
   opacity: 0.8;
-}
-
-/* Wrapper to hide content until navbar height is applied */
-.block-wrapper {
-  visibility: hidden;
-  padding-top: 120px; /* fallback until JS sets exact navbar height */
-  transition: padding-top 0.2s ease;
 }
 
 /* Responsive Design */
