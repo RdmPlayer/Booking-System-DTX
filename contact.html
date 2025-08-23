@@ -7,29 +7,24 @@
 <link rel="stylesheet" href="style1.css">
 
 <script>
-  async function loadResponsiveStyle() {
-    try{
-      const res = await fetch('responsive-style.html');
-      const html = await res.text();
-      const frag = document.createRange().createContextualFragment(html);
-      document.head.appendChild(frag);
-    } catch(err){ console.error(err); }
-  }
-  loadResponsiveStyle();
+async function loadResponsiveStyle(){
+  try{
+    const res = await fetch('responsive-style.html');
+    document.head.appendChild(document.createRange().createContextualFragment(await res.text()));
+  } catch(err){ console.error(err); }
+}
+loadResponsiveStyle();
 </script>
 </head>
 <body>
 
-<!-- Navbar -->
 <div id="navbar"></div>
 
-<!-- Back Button -->
-<div class="back-button" role="button" aria-label="Go Back" tabindex="0"
+<div class="back-button" role="button" tabindex="0"
      onclick="history.back()"
      onkeydown="if(event.key==='Enter'||event.key===' ') history.back();">
 </div>
 
-<!-- Page Wrapper -->
 <div class="page-wrapper">
   <main class="contact-container">
     <h1>Contact Us</h1>
@@ -37,51 +32,41 @@
 
     <section>
       <h2>Staff Members</h2>
-      <p>If you wish to contact a staff member, you may contact reception at 
-         <a href="tel:+6478540010">+6478540010</a>
-      </p>
+      <p>Contact reception at <a href="tel:+6478540010">+6478540010</a></p>
 
       <h2>Address</h2>
-      <p>
-        <a href="https://www.google.com/maps/place/1+Micah+Place,+Rototuna,+Hamilton,+3210" target="_blank">
-          1 Micah Place, Rototuna, Hamilton, 3210
-        </a>
-      </p>
+      <p><a href="https://www.google.com/maps/place/1+Micah+Place,+Rototuna,+Hamilton,+3210" target="_blank">
+        1 Micah Place, Rototuna, Hamilton, 3210
+      </a></p>
     </section>
   </main>
 </div>
 
-<!-- Navbar JS -->
 <script>
 async function loadNavbar(){
-  const resp = await fetch('navbar.html');
-  if(resp.ok){
-    const navbarElement = document.getElementById('navbar');
-    navbarElement.innerHTML = await resp.text();
-    attachNavbarEvents();
+  const navResp = await fetch('navbar.html');
+  if(navResp.ok){
+    const navbar = document.getElementById('navbar');
+    navbar.innerHTML = await navResp.text();
+    document.getElementById('contactBtn')?.addEventListener('click',()=>alert('Contact us at contact@school.edu'));
+    document.getElementById('accessibilityBtn')?.addEventListener('click',()=>document.body.classList.toggle('high-contrast'));
 
-    // Reveal wrapper
-    const wrapper = document.querySelector('.page-wrapper');
-    if(wrapper){
-      const navbarHeight = navbarElement.offsetHeight;
-      wrapper.style.paddingTop = navbarHeight + 'px';
-      wrapper.style.visibility = 'visible';
-    }
-  } else { console.error('Failed to load navbar:', resp.status); }
-}
-
-function attachNavbarEvents(){
-  document.getElementById('contactBtn')?.addEventListener('click', ()=>alert('Contact us at contact@school.edu or call 123-456-7890'));
-  document.getElementById('accessibilityBtn')?.addEventListener('click', ()=>document.body.classList.toggle('high-contrast'));
+    requestAnimationFrame(()=>{
+      const wrapper = document.querySelector('.page-wrapper');
+      if(wrapper){
+        wrapper.style.paddingTop = navbar.offsetHeight + 'px';
+        wrapper.style.visibility = 'visible';
+      }
+    });
+  } else { console.error('Navbar failed:', navResp.status); }
 }
 
 loadNavbar();
 
-// Adjust wrapper padding on resize
-window.addEventListener('resize', ()=>{
-  const navbarHeight = document.getElementById('navbar')?.offsetHeight || 0;
+window.addEventListener('resize',()=>{
+  const navbar = document.getElementById('navbar');
   const wrapper = document.querySelector('.page-wrapper');
-  if(wrapper) wrapper.style.paddingTop = navbarHeight + 'px';
+  if(wrapper && navbar) wrapper.style.paddingTop = navbar.offsetHeight + 'px';
 });
 </script>
 
