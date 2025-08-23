@@ -58,13 +58,15 @@
     async function loadNavbar() {
       const response = await fetch('navbar.html');
       if (response.ok) {
-        const navbarHtml = await response.text();
-        document.getElementById('navbar').innerHTML = navbarHtml;
+        const navbarElement = document.getElementById('navbar');
+        navbarElement.innerHTML = await response.text();
         attachNavbarEvents();
 
-        // Dynamically adjust padding-top of wrapper to navbar height
-        const navbarHeight = document.getElementById('navbar').offsetHeight;
-        document.querySelector('.contact-wrapper').style.paddingTop = navbarHeight + 'px';
+        // Adjust padding-top after navbar has rendered
+        setTimeout(() => {
+          const navbarHeight = navbarElement.offsetHeight;
+          document.querySelector('.contact-wrapper').style.paddingTop = navbarHeight + 'px';
+        }, 50); // ensures navbar is fully rendered
       } else {
         console.error('Failed to load navbar:', response.status);
       }
@@ -82,7 +84,7 @@
 
     loadNavbar();
 
-    // Optional: adjust if window resizes (responsive)
+    // Recalculate padding if window is resized (responsive)
     window.addEventListener('resize', () => {
       const navbarHeight = document.getElementById('navbar').offsetHeight;
       document.querySelector('.contact-wrapper').style.paddingTop = navbarHeight + 'px';
