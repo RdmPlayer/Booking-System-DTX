@@ -10,44 +10,40 @@
 
 <div id="navbar"></div>
 
-<div class="back-button" role="button" tabindex="0"
-     onclick="history.back()"
-     onkeydown="if(event.key==='Enter'||event.key===' ') history.back();"></div>
+<div class="page-wrapper">
+  <!-- Back Button -->
+  <div class="back-button" role="button" tabindex="0"
+       onclick="history.back()"
+       onkeydown="if(event.key==='Enter'||event.key===' ') history.back();">
+  </div>
 
-<main class="contact-container">
-  <h1>Contact Us</h1>
-  <p>Have questions or need support? Reach out to us!</p>
+  <!-- Contact Box -->
+  <main class="contact-container">
+    <h1>Contact Us</h1>
+    <p>Have questions or need support? Reach out to us!</p>
 
-  <section>
-    <h2>Staff Members</h2>
-    <p>Contact reception at <a href="tel:+6478540010">+6478540010</a></p>
+    <section>
+      <h2>Staff Members</h2>
+      <p>Contact reception at <a href="tel:+6478540010">+6478540010</a></p>
 
-    <h2>Address</h2>
-    <p><a href="https://www.google.com/maps/place/1+Micah+Place,+Rototuna,+Hamilton,+3210" target="_blank">
-      1 Micah Place, Rototuna, Hamilton, 3210
-    </a></p>
-  </section>
-</main>
+      <h2>Address</h2>
+      <p><a href="https://www.google.com/maps/place/1+Micah+Place,+Rototuna,+Hamilton,+3210" target="_blank">
+        1 Micah Place, Rototuna, Hamilton, 3210
+      </a></p>
+    </section>
+  </main>
+</div>
 
 <script>
-async function loadNavbar(){
+async function loadNavbar() {
   const navbar = document.getElementById('navbar');
   try {
     const res = await fetch('navbar.html');
-    if(!res.ok) throw new Error(res.status);
+    if (!res.ok) throw new Error(res.status);
     navbar.innerHTML = await res.text();
-
-    requestAnimationFrame(()=>{
-      document.body.style.paddingTop = (navbar.offsetHeight + 10) + 'px';
-    });
-
-    window.addEventListener('resize', ()=> {
-      document.body.style.paddingTop = (navbar.offsetHeight + 10) + 'px';
-    });
 
     document.getElementById('contactBtn')?.addEventListener('click', ()=>alert('Contact us at contact@school.edu'));
     document.getElementById('accessibilityBtn')?.addEventListener('click', ()=>document.body.classList.toggle('high-contrast'));
-
   } catch(err){ console.error('Navbar load failed:', err); }
 }
 loadNavbar();
