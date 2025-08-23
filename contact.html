@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact Us</title>
 <link rel="stylesheet" href="style1.css">
-
 <script>
 async function loadResponsiveStyle(){
   try{
@@ -22,8 +21,7 @@ loadResponsiveStyle();
 
 <div class="back-button" role="button" tabindex="0"
      onclick="history.back()"
-     onkeydown="if(event.key==='Enter'||event.key===' ') history.back();">
-</div>
+     onkeydown="if(event.key==='Enter'||event.key===' ') history.back();"></div>
 
 <div class="page-wrapper">
   <main class="contact-container">
@@ -44,25 +42,28 @@ loadResponsiveStyle();
 
 <script>
 async function loadNavbar(){
-  const navResp = await fetch('navbar.html');
-  if(navResp.ok){
-    const navbar = document.getElementById('navbar');
-    navbar.innerHTML = await navResp.text();
+  const navbar = document.getElementById('navbar');
+  try{
+    const res = await fetch('navbar.html');
+    if(!res.ok) throw new Error(res.status);
+    navbar.innerHTML = await res.text();
 
-    document.getElementById('contactBtn')?.addEventListener('click',()=>alert('Contact us at contact@school.edu'));
-    document.getElementById('accessibilityBtn')?.addEventListener('click',()=>document.body.classList.toggle('high-contrast'));
+    document.getElementById('contactBtn')?.addEventListener('click', ()=>alert('Contact us at contact@school.edu'));
+    document.getElementById('accessibilityBtn')?.addEventListener('click', ()=>document.body.classList.toggle('high-contrast'));
 
-    function adjustWrapper() {
+    function adjustWrapper(){
       const wrapper = document.querySelector('.page-wrapper');
       if(wrapper){
-        wrapper.style.marginTop = navbar.offsetHeight + 'px';
+        console.log('Navbar height:', navbar.offsetHeight);
+        wrapper.style.marginTop = (navbar.offsetHeight + 10) + 'px'; // 10px extra gap
         wrapper.style.visibility = 'visible';
-      }
+      } else console.warn('.page-wrapper not found');
     }
+
     requestAnimationFrame(adjustWrapper);
     window.addEventListener('resize', adjustWrapper);
 
-  } else { console.error('Navbar failed:', navResp.status); }
+  } catch(err){ console.error('Navbar load failed:', err); }
 }
 loadNavbar();
 </script>
