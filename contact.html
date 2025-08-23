@@ -5,15 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact Us</title>
 <link rel="stylesheet" href="style1.css">
-<script>
-async function loadResponsiveStyle(){
-  try{
-    const res = await fetch('responsive-style.html');
-    document.head.appendChild(document.createRange().createContextualFragment(await res.text()));
-  } catch(err){ console.error(err); }
-}
-loadResponsiveStyle();
-</script>
 </head>
 <body>
 
@@ -23,45 +14,41 @@ loadResponsiveStyle();
      onclick="history.back()"
      onkeydown="if(event.key==='Enter'||event.key===' ') history.back();"></div>
 
-<div class="page-wrapper">
-  <main class="contact-container">
-    <h1>Contact Us</h1>
-    <p>Have questions or need support? Reach out to us!</p>
+<main class="contact-container">
+  <h1>Contact Us</h1>
+  <p>Have questions or need support? Reach out to us!</p>
 
-    <section>
-      <h2>Staff Members</h2>
-      <p>Contact reception at <a href="tel:+6478540010">+6478540010</a></p>
+  <section>
+    <h2>Staff Members</h2>
+    <p>Contact reception at <a href="tel:+6478540010">+6478540010</a></p>
 
-      <h2>Address</h2>
-      <p><a href="https://www.google.com/maps/place/1+Micah+Place,+Rototuna,+Hamilton,+3210" target="_blank">
-        1 Micah Place, Rototuna, Hamilton, 3210
-      </a></p>
-    </section>
-  </main>
-</div>
+    <h2>Address</h2>
+    <p><a href="https://www.google.com/maps/place/1+Micah+Place,+Rototuna,+Hamilton,+3210" target="_blank">
+      1 Micah Place, Rototuna, Hamilton, 3210
+    </a></p>
+  </section>
+</main>
 
 <script>
+// Load navbar and dynamically set body padding
 async function loadNavbar(){
   const navbar = document.getElementById('navbar');
-  try{
+  try {
     const res = await fetch('navbar.html');
     if(!res.ok) throw new Error(res.status);
     navbar.innerHTML = await res.text();
 
+    // Buttons
     document.getElementById('contactBtn')?.addEventListener('click', ()=>alert('Contact us at contact@school.edu'));
     document.getElementById('accessibilityBtn')?.addEventListener('click', ()=>document.body.classList.toggle('high-contrast'));
 
-    function adjustWrapper(){
-      const wrapper = document.querySelector('.page-wrapper');
-      if(wrapper){
-        console.log('Navbar height:', navbar.offsetHeight);
-        wrapper.style.marginTop = (navbar.offsetHeight + 10) + 'px'; // 10px extra gap
-        wrapper.style.visibility = 'visible';
-      } else console.warn('.page-wrapper not found');
+    // Set body padding to navbar height
+    function adjustPadding(){
+      document.body.style.paddingTop = navbar.offsetHeight + 10 + 'px';
     }
 
-    requestAnimationFrame(adjustWrapper);
-    window.addEventListener('resize', adjustWrapper);
+    adjustPadding();
+    window.addEventListener('resize', adjustPadding);
 
   } catch(err){ console.error('Navbar load failed:', err); }
 }
