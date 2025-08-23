@@ -20,8 +20,7 @@ body {
 
 /* Page Wrapper */
 .page-wrapper {
-  visibility: hidden; /* initially hidden */
-  transition: padding-top 0.2s ease;
+  visibility: hidden; /* initially hidden, will show after JS adjustment */
 }
 
 /* Back Button */
@@ -46,7 +45,7 @@ body {
 /* Left & Right Panels (Block Pages) */
 .container {
   display: flex;
-  min-height: calc(100vh - 0px); /* JS sets actual navbar height */
+  min-height: 100vh; /* JS adjusts marginTop dynamically */
 }
 
 .left-panel {
@@ -127,7 +126,7 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0,0,0,0.5);
   color: white;
   border: none;
   padding: 10px 15px;
@@ -139,7 +138,7 @@ body {
 }
 
 .carousel-button:hover {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0,0,0,0.7);
 }
 
 .carousel-button.left { left: 10px; }
