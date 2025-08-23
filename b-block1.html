@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>B-Block Rooms</title>
 <link rel="stylesheet" href="style1.css">
+
 <script>
   // Load shared responsive CSS
   async function loadResponsiveStyle() {
@@ -19,6 +20,7 @@
   loadResponsiveStyle();
 </script>
 </head>
+
 <body>
 
 <!-- Navbar -->
@@ -33,7 +35,7 @@
 <!-- Main Wrapper -->
 <div class="block-wrapper">
   <div class="container">
-    <!-- Left Panel: Buttons -->
+    <!-- Left Panel -->
     <div class="left-panel">
       <h2>Select a Room in B-Block</h2>
       <div class="button-group">
@@ -45,7 +47,7 @@
       </div>
     </div>
 
-    <!-- Right Panel: Image Carousel -->
+    <!-- Right Panel -->
     <div class="right-panel">
       <div class="carousel">
         <div class="carousel-slide">
@@ -93,13 +95,11 @@
       navbarElement.innerHTML = await response.text();
       attachNavbarEvents();
 
-      // Wait until full page load to ensure images/fonts in navbar are loaded
-      window.addEventListener('load', () => {
-        const navbarHeight = navbarElement.offsetHeight;
-        const wrapper = document.querySelector('.block-wrapper');
-        wrapper.style.paddingTop = navbarHeight + 'px';
-        wrapper.style.visibility = 'visible'; // show content after layout
-      });
+      // Immediately set wrapper padding and reveal content
+      const wrapper = document.querySelector('.block-wrapper');
+      const navbarHeight = navbarElement.offsetHeight;
+      wrapper.style.paddingTop = navbarHeight + 'px';
+      wrapper.style.visibility = 'visible';
     } else {
       console.error('Failed to load navbar:', response.status);
     }
@@ -117,7 +117,7 @@
 
   loadNavbar();
 
-  // Recalculate padding on window resize
+  // Adjust padding on window resize
   window.addEventListener('resize', () => {
     const navbarHeight = document.getElementById('navbar').offsetHeight;
     const wrapper = document.querySelector('.block-wrapper');
