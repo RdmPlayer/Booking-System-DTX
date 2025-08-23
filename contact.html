@@ -1,96 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Contact Us</title>
-  <link rel="stylesheet" href="style3.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us</title>
+<link rel="stylesheet" href="style1.css">
 
-  <script>
-    // Load shared responsive CSS
-    async function loadResponsiveStyle() {
-      try {
-        const res = await fetch('responsive-style.html');
-        const html = await res.text();
-        const fragment = document.createRange().createContextualFragment(html);
-        document.head.appendChild(fragment);
-      } catch (err) {
-        console.error('Failed to load responsive-style.html:', err);
-      }
-    }
-    loadResponsiveStyle();
-  </script>
+<script>
+  async function loadResponsiveStyle() {
+    try{
+      const res = await fetch('responsive-style.html');
+      const html = await res.text();
+      const frag = document.createRange().createContextualFragment(html);
+      document.head.appendChild(frag);
+    } catch(err){ console.error(err); }
+  }
+  loadResponsiveStyle();
+</script>
 </head>
-
 <body>
-  <!-- Navbar -->
-  <div id="navbar"></div>
 
-  <!-- Back Button -->
-  <div class="back-button" role="button" aria-label="Go Back" tabindex="0"
-       onclick="history.back()"
-       onkeydown="if(event.key === 'Enter' || event.key === ' ') history.back();">
-  </div>
+<!-- Navbar -->
+<div id="navbar"></div>
 
-  <!-- Contact Content Wrapper -->
-  <div class="contact-wrapper" style="visibility:hidden;">
-    <main class="contact-container">
-      <h1>Contact Us</h1>
-      <p>Have questions or need support? Reach out to us!</p>
+<!-- Back Button -->
+<div class="back-button" role="button" aria-label="Go Back" tabindex="0"
+     onclick="history.back()"
+     onkeydown="if(event.key==='Enter'||event.key===' ') history.back();">
+</div>
 
-      <section>
-        <h2>Staff Members</h2>
-        <p>If you wish to contact a staff member, you may contact reception at 
-          <a href="tel:+6478540010">+6478540010</a>
-        </p>
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+  <main class="contact-container">
+    <h1>Contact Us</h1>
+    <p>Have questions or need support? Reach out to us!</p>
 
-        <h2>Address</h2>
-        <p>
-          <a href="https://www.google.com/maps/place/1+Micah+Place,+Rototuna,+Hamilton,+3210" target="_blank">
-            1 Micah Place, Rototuna, Hamilton, 3210
-          </a>
-        </p>
-      </section>
-    </main>
-  </div>
+    <section>
+      <h2>Staff Members</h2>
+      <p>If you wish to contact a staff member, you may contact reception at 
+         <a href="tel:+6478540010">+6478540010</a>
+      </p>
 
-  <script>
-    async function loadNavbar() {
-      const response = await fetch('navbar.html');
-      if (response.ok) {
-        const navbarElement = document.getElementById('navbar');
-        navbarElement.innerHTML = await response.text();
-        attachNavbarEvents();
+      <h2>Address</h2>
+      <p>
+        <a href="https://www.google.com/maps/place/1+Micah+Place,+Rototuna,+Hamilton,+3210" target="_blank">
+          1 Micah Place, Rototuna, Hamilton, 3210
+        </a>
+      </p>
+    </section>
+  </main>
+</div>
 
-        // Wait for the full page load to ensure all fonts/images in navbar are rendered
-        window.addEventListener('load', () => {
-          const navbarHeight = navbarElement.offsetHeight;
-          const wrapper = document.querySelector('.contact-wrapper');
-          wrapper.style.paddingTop = navbarHeight + 'px';
-          wrapper.style.visibility = 'visible'; // show content after layout
-        });
-      } else {
-        console.error('Failed to load navbar:', response.status);
-      }
-    }
+<!-- Navbar JS -->
+<script>
+async function loadNavbar(){
+  const resp = await fetch('navbar.html');
+  if(resp.ok){
+    const navbarElement = document.getElementById('navbar');
+    navbarElement.innerHTML = await resp.text();
+    attachNavbarEvents();
 
-    function attachNavbarEvents() {
-      document.getElementById('contactBtn')?.addEventListener('click', () => {
-        alert('Contact us at contact@school.edu or call 123-456-7890');
-      });
-
-      document.getElementById('accessibilityBtn')?.addEventListener('click', () => {
-        document.body.classList.toggle('high-contrast');
-      });
-    }
-
-    loadNavbar();
-
-    // Recalculate padding if window is resized
-    window.addEventListener('resize', () => {
-      const navbarHeight = document.getElementById('navbar').offsetHeight;
-      const wrapper = document.querySelector('.contact-wrapper');
+    // Reveal wrapper
+    const wrapper = document.querySelector('.page-wrapper');
+    if(wrapper){
+      const navbarHeight = navbarElement.offsetHeight;
       wrapper.style.paddingTop = navbarHeight + 'px';
-    });
-  </script>
+      wrapper.style.visibility = 'visible';
+    }
+  } else { console.error('Failed to load navbar:', resp.status); }
+}
+
+function attachNavbarEvents(){
+  document.getElementById('contactBtn')?.addEventListener('click', ()=>alert('Contact us at contact@school.edu or call 123-456-7890'));
+  document.getElementById('accessibilityBtn')?.addEventListener('click', ()=>document.body.classList.toggle('high-contrast'));
+}
+
+loadNavbar();
+
+// Adjust wrapper padding on resize
+window.addEventListener('resize', ()=>{
+  const navbarHeight = document.getElementById('navbar')?.offsetHeight || 0;
+  const wrapper = document.querySelector('.page-wrapper');
+  if(wrapper) wrapper.style.paddingTop = navbarHeight + 'px';
+});
+</script>
+
 </body>
 </html>
