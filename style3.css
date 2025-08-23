@@ -26,7 +26,7 @@ body {
 
 /* Wrapper to offset navbar height dynamically */
 .contact-wrapper {
-  padding-top: 80px; /* default space for navbar before JS adjustment */
+  padding-top: 120px; /* safe default to prevent overlap */
   transition: padding-top 0.2s; /* smooth adjustment */
 }
 
