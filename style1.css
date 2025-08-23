@@ -3,9 +3,10 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
-/* Sticky navbar */
+/* Sticky navbar (fixed) */
 #navbar {
   position: fixed;
   top: 0;
@@ -47,7 +48,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 80%; /* Keeps buttons narrower and centered */
+  width: 80%;
 }
 
 .button-group button {
@@ -130,12 +131,6 @@ body {
   right: 10px;
 }
 
-/* Optional: Extra Hover Styling for Left-Side Buttons */
-.t1-button:hover {
-  background-color: red;
-  color: white;
-}
-
 /* Back Button */
 .back-button {
   width: 80px;
@@ -146,13 +141,20 @@ body {
   background-position: center;
   cursor: pointer;
   position: fixed;
-  top: 110px;
+  top: 110px; /* will stay below navbar dynamically if needed */
   left: 20px;
   z-index: 1000;
 }
 
 .back-button:hover {
   opacity: 0.8;
+}
+
+/* Wrapper to hide content until navbar height is applied */
+.block-wrapper {
+  visibility: hidden;
+  padding-top: 120px; /* fallback until JS sets exact navbar height */
+  transition: padding-top 0.2s ease;
 }
 
 /* Responsive Design */
