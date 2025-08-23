@@ -67,29 +67,24 @@ async function loadNavbar(){
   if(navResp.ok){
     const navbar = document.getElementById('navbar');
     navbar.innerHTML = await navResp.text();
+
     document.getElementById('contactBtn')?.addEventListener('click',()=>alert('Contact us at contact@school.edu'));
     document.getElementById('accessibilityBtn')?.addEventListener('click',()=>document.body.classList.toggle('high-contrast'));
 
-    // Wait a frame to get accurate navbar height
-    requestAnimationFrame(()=>{
+    // Dynamic offset
+    function adjustWrapper() {
       const wrapper = document.querySelector('.page-wrapper');
-      if(wrapper){
-        const navbarHeight = navbar.offsetHeight;
-        wrapper.style.paddingTop = navbarHeight + 'px';
+      if(wrapper) {
+        wrapper.style.marginTop = navbar.offsetHeight + 'px';
         wrapper.style.visibility = 'visible';
       }
-    });
+    }
+    requestAnimationFrame(adjustWrapper);
+    window.addEventListener('resize', adjustWrapper);
+
   } else { console.error('Navbar failed:', navResp.status); }
 }
 loadNavbar();
-
-window.addEventListener('resize',()=>{
-  const navbar = document.getElementById('navbar');
-  const wrapper = document.querySelector('.page-wrapper');
-  if(wrapper && navbar){
-    wrapper.style.paddingTop = navbar.offsetHeight + 'px';
-  }
-});
 </script>
 
 </body>
