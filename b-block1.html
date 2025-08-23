@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>B-Block Rooms</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style1.css">
 </head>
 <body>
 
@@ -57,8 +57,8 @@ async function loadNavbar(){
     if(!res.ok) throw new Error(res.status);
     navbar.innerHTML = await res.text();
 
-    requestAnimationFrame(()=>{ document.body.style.paddingTop = navbar.offsetHeight + 'px'; });
-    window.addEventListener('resize', ()=>{ document.body.style.paddingTop = navbar.offsetHeight + 'px'; });
+    requestAnimationFrame(()=>{ document.body.style.paddingTop = (navbar.offsetHeight + 10) + 'px'; });
+    window.addEventListener('resize', ()=>{ document.body.style.paddingTop = (navbar.offsetHeight + 10) + 'px'; });
 
     document.getElementById('contactBtn')?.addEventListener('click', ()=>alert('Contact us at contact@school.edu'));
     document.getElementById('accessibilityBtn')?.addEventListener('click', ()=>document.body.classList.toggle('high-contrast'));
