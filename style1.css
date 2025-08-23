@@ -3,35 +3,34 @@
   position: fixed;
   top: 0;
   width: 100%;
-  height: 60px;                 /* Fixed height for all pages */
+  height: 60px;                 /* Fixed navbar height */
   background-color: #003366;
   z-index: 1000;
 
   display: flex;
   justify-content: space-between;
-  align-items: center;          /* Vertically center all children */
+  align-items: center;          /* Center children vertically */
   padding: 0 25px;
   box-sizing: border-box;
-
-  overflow-x: visible;
-  white-space: nowrap;
 }
 
-#navbar > * {
-  display: flex;
-  align-items: center;
-  height: 100%;                 /* Fill navbar height */
-}
-
-/* Logo sizing */
 #navbar .logo img {
-  height: 50px;                 /* Fits within navbar */
+  height: 50px;                 /* Logo fits inside navbar */
   width: auto;
   display: block;
 }
 
+#navbar .nav-links a,
+#navbar .nav-links button {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+  white-space: nowrap;          /* Prevent text cutoff */
+  line-height: normal;
+}
+
 .page-wrapper {
-  padding-top: 60px; /* Offset for fixed navbar */
+  padding-top: 60px; /* Push content below navbar */
 }
 
 /* ================== Back Button ================== */
@@ -110,7 +109,7 @@ body.high-contrast .block-label {
 
 .container {
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 60px); /* Account for navbar height */
 }
 
 /* Left Panel */
