@@ -1,223 +1,160 @@
-/* ================== Navbar & Wrapper ================== */
-#navbar {
-  position: fixed;
-  top: 0;
-  left: 0; /* ensure it starts at the very left */
-  width: 100%;
-  height: 60px;
-  background-color: #003366;
-  z-index: 1000;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* logo left, buttons/links right */
-  padding: 0 20px; /* internal horizontal spacing */
-  box-sizing: border-box; /* include padding in width calculation */
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* Page wrapper */
 .page-wrapper {
-  padding-top: 60px; /* offset for navbar */
+  margin-top: 100px; /* leaves space for fixed navbar */
+  padding: 20px;
 }
 
-/* ================== Back Button ================== */
-.back-button {
-  width: 80px;
-  height: 80px;
-  background-image: url('back.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  cursor: pointer;
-  position: fixed;
-  top: 110px;
-  left: 20px;
-  z-index: 1000;
-}
-
-.back-button:hover {
-  opacity: 0.8;
-}
-
-/* ================== Contact Page ================== */
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  background-color: #f9f9f9;
-  color: #333;
-}
-
-.contact-container {
-  max-width: 800px;
-  margin: 30px auto;
-  padding: 40px;
-  background-color: #fff;
-  border-radius: 8px;
-  border: 2px solid #003366;
-  box-shadow: 0 0 10px rgba(0,102,204,0.3);
-  font-size: 1.1rem;
-}
-
-.contact-container h1 {
-  color: #003366;
-  margin-bottom: 10px;
-  font-size: 2rem;
-}
-
-.contact-container h2 {
-  font-size: 1.4rem;
-  margin-top: 25px;
-}
-
-.contact-container p {
-  margin-top: 10px;
-  line-height: 1.6;
-}
-
-.contact-container a {
-  color: #c42026;
-  text-decoration: none;
-}
-
-.contact-container a:hover {
-  text-decoration: underline;
-}
-
-/* ================== B-Block Page ================== */
-body.high-contrast { 
-  background-color: black; 
-  color: white; 
-}
-
-body.high-contrast .block-label { 
-  background-color: yellow; 
-  color: black; 
-}
-
+/* Container for panels */
 .container {
   display: flex;
-  height: 100vh;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 /* Left Panel */
 .left-panel {
-  width: 50%;
-  background-color: #f0f0f0;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex: 1;
+  min-width: 250px;
 }
 
 .left-panel h2 {
-  margin-top: 0;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.button-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 80%;
+  margin-bottom: 15px;
 }
 
 .button-group button {
+  display: block;
   width: 100%;
-  padding: 15px;
-  font-size: 16px;
+  padding: 12px;
+  margin-bottom: 10px;
+  font-size: 18px;
   background-color: #003366;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.button-group button:hover { 
-  background-color: #0055a5; 
+.button-group button:hover {
+  background-color: #a11820;
 }
 
-/* Right Panel Carousel */
+/* Right Panel */
 .right-panel {
-  width: 50%;
+  flex: 2;
+  min-width: 300px;
+}
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.carousel-slide {
   display: flex;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background-color: #f0f0f0;
+  position: relative;
 }
 
-.carousel { 
-  width: 90%; 
-  height: 90%; 
-  position: relative; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
+.carousel-slide img {
+  display: none;
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 6px;
 }
 
-.carousel-slide { 
-  position: relative; 
-  width: 100%; 
-  height: 100%; 
-}
-
-.carousel img { 
-  width: 100%; 
-  height: 100%; 
-  object-fit: cover; 
-  display: none; 
-  border-radius: 8px; 
-}
-
-.carousel img.active { 
-  display: block; 
+.carousel-slide img.active {
+  display: block;
 }
 
 .carousel-button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0,0,0,0.5);
-  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
   border: none;
-  padding: 10px 15px;
+  color: white;
+  padding: 10px;
   cursor: pointer;
-  font-size: 20px;
+  border-radius: 50%;
+  font-size: 18px;
   z-index: 10;
-  border-radius: 5px;
-  transition: background-color 0.2s;
 }
 
-.carousel-button:hover { 
-  background-color: rgba(0,0,0,0.7); 
+.carousel-button.left {
+  left: 10px;
 }
 
-.carousel-button.left { 
-  left: 10px; 
+.carousel-button.right {
+  right: 10px;
 }
 
-.carousel-button.right { 
-  right: 10px; 
+/* Back Button */
+.back-button {
+  width: 40px;
+  height: 40px;
+  background-color: #003366;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  cursor: pointer;
 }
 
-/* ================== Responsive ================== */
-@media (max-width: 768px) {
-  .container { 
-    flex-direction: column; 
-  }
-  .left-panel, .right-panel { 
-    width: 100%; 
-    height: 50vh; 
-  }
-  .button-group { 
-    width: 90%; 
-  }
+.back-button:hover {
+  background-color: #a11820;
 }
 
-/* ================== Reset to prevent unexpected shifting ================== */
-body, html, #navbar, #navbar * {
-  margin: 0 !important;
-  padding: 0 !important;
-  box-sizing: border-box;
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #003366;
+  z-index: 1000;
+  display: flex;
+  font-family: Arial, sans-serif;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  color: white;
+}
+
+.logo img {
+  height: 80px;
+  display: block;
+}
+
+.nav-items {
+  display: flex;
+  align-items: center;
+}
+
+.nav-button {
+  background-color: #003366;
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  margin-left: 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 25px;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+}
+
+.nav-button:hover {
+  background-color: #a11820;
 }
