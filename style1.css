@@ -4,7 +4,7 @@
   top: 0;
   left: 0; /* ensure it starts at the very left */
   width: 100%;
-  
+  height: 60px;
   background-color: #003366;
   z-index: 1000;
 
