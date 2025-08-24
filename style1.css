@@ -2,19 +2,27 @@
 #navbar {
   position: fixed;
   top: 0;
-  left: 0; /* ensure it starts at the very left */
+  left: 0;
   width: 100%;
-  height: 60px;
+  height: 60px;  /* fixed navbar height */
   background-color: #003366;
   z-index: 1000;
 
   display: flex;
-  align-items: center;
-  justify-content: space-between; /* logo left, buttons/links right */
-  padding: 0 20px; /* internal horizontal spacing */
-  box-sizing: border-box; /* include padding in width calculation */
+  align-items: center;          /* vertical centering */
+  justify-content: space-between; 
+  padding: 0 20px;              /* horizontal padding */
+  box-sizing: border-box;
 }
 
+/* Logo image sizing */
+#navbar .logo img {
+  height: 50px;  /* slightly smaller than navbar height */
+  width: auto;   /* maintain aspect ratio */
+  display: block;
+}
+
+/* Page wrapper offset for fixed navbar */
 .page-wrapper {
   padding-top: 60px; /* offset for navbar */
 }
