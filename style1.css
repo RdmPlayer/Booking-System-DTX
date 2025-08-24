@@ -214,10 +214,3 @@ body.high-contrast .block-label {
     width: 90%; 
   }
 }
-
-/* ================== Reset to prevent unexpected shifting ================== */
-body, html, #navbar, #navbar * {
-  margin: 0 !important;
-  padding: 0 !important;
-  box-sizing: border-box;
-}
