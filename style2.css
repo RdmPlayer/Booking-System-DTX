@@ -1,140 +1,134 @@
 /* Base body styles */
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background-color: #f0f0f0;
-  overflow-x: hidden;
+font-family: Arial, sans-serif;
+margin: 0;
+background-color: #f0f0f0;
+overflow-x: hidden;
+padding-top: 80px; /* Add space for fixed navbar */
 }
 
-/* Sticky navbar */
+/* Remove conflicting navbar styles - let navbar.html handle its own styling */
 #navbar {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  background-color: #003366;
-  z-index: 1000;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-#navbar > * {
-  margin: 0;
-  padding: 0;
+/* Only keep essential positioning - remove all styling conflicts */
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+z-index: 1000;
 }
 
 /* Page Title */
 h2 {
-  text-align: center;
-  margin: 20px 0 30px 0;
-  color: black;
+text-align: center;
+margin: 20px 0 30px 0;
+color: black;
 }
 
 /* Grid layout */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);  /* 4 columns by default */
-  gap: 20px;
-  justify-items: center;
-  padding: 0 20px 40px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+display: grid;
+grid-template-columns: repeat(4, 1fr);  /* 4 columns by default */
+gap: 20px;
+justify-items: center;
+padding: 0 20px 40px 20px;
+max-width: 1200px;
+margin: 0 auto;
 }
 
 /* iPad Landscape or medium screens (approx < 1024px) */
 @media screen and (max-width: 1023px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.grid {
+grid-template-columns: repeat(3, 1fr);
+}
 }
 
 /* Phones and small screens */
 @media screen and (max-width: 700px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.grid {
+grid-template-columns: repeat(2, 1fr);
+}
 }
 
 @media screen and (max-width: 420px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
+.grid {
+grid-template-columns: 1fr;
+}
 }
 
 /* Block card styling */
 .block {
-  width: 100%;
-  max-width: 200px;
-  aspect-ratio: 1 / 1;
-  border: 4px solid #000000;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  border-radius: 8px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  text-decoration: none;
-  transition: transform 0.2s;
-  background-color: white;
+width: 100%;
+max-width: 200px;
+aspect-ratio: 1 / 1;
+border: 4px solid #000000;
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+border-radius: 8px;
+overflow: hidden;
+display: flex;
+flex-direction: column;
+align-items: stretch;
+text-decoration: none;
+transition: transform 0.2s;
+background-color: white;
 }
 
 .block:hover {
-  transform: scale(1.02);
+transform: scale(1.02);
 }
 
 .block img {
-  width: 100%;
-  height: 70%;
-  object-fit: cover;
+width: 100%;
+height: 70%;
+object-fit: cover;
 }
 
 .block-label {
-  height: 30%;
-  background-color: #003366;
-  color: white;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  user-select: none;
+height: 30%;
+background-color: #003366;
+color: white;
+font-size: 16px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: bold;
+transition: background-color 0.3s ease;
+user-select: none;
 }
 
 .block:hover .block-label {
-  background-color: #ff0000;
+background-color: #ff0000;
 }
 
 /* High contrast toggle */
 body.high-contrast {
-  background-color: black;
-  color: white;
+background-color: black;
+color: white;
 }
 
 body.high-contrast .block-label {
-  background-color: yellow;
-  color: black;
+background-color: yellow;
+color: black;
 }
 
 body.high-contrast .block:hover .block-label {
-  background-color: orange;
+background-color: orange;
 }
 
 /* Back button */
 .back-button {
-  width: 40px;
-  height: 40px;
-  background-image: url('back.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  cursor: pointer;
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 1000;
+width: 40px;
+height: 40px;
+background-image: url(‘back.jpg’);
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+cursor: pointer;
+position: fixed;
+top: 20px;
+left: 20px;
+z-index: 1000;
 }
 
 .back-button:hover {
-  opacity: 0.8;
+opacity: 0.8;
 }
