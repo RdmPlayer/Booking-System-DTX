@@ -1,56 +1,31 @@
-/* ================== Navbar ================== */
+/* ================== Navbar & Wrapper ================== */
 #navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 60px;              /* fixed navbar height */
+  height: 60px;  /* fixed navbar height */
   background-color: #003366;
   z-index: 1000;
 
   display: flex;
-  align-items: center;        /* vertical centering */
-  justify-content: space-between;
-  padding: 0 20px;            /* horizontal padding */
+  align-items: center;          /* vertical centering */
+  justify-content: space-between; 
+  padding: 0 20px;              /* horizontal padding */
   box-sizing: border-box;
 }
 
+/* Real Fix: constrain logo to navbar height */
 #navbar .logo img {
-  max-height: 100%;           /* logo never exceeds navbar height */
-  height: auto;               /* maintain aspect ratio */
+  max-height: 100%;   /* will never exceed navbar height */
+  height: auto;       /* maintain aspect ratio */
   width: auto;
   display: block;
 }
 
-#navbar .nav-items {
-  display: flex;
-  align-items: center;
-}
-
-#navbar .nav-button {
-  background-color: #003366;
-  border: none;
-  color: white;
-  padding: 8px 15px;
-  margin-left: 15px;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 25px;
-  transition: background-color 0.3s ease;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-}
-
-#navbar .nav-button:hover {
-  background-color: #a11820;
-}
-
-/* ================== Page Wrapper ================== */
+/* Page wrapper offset for fixed navbar */
 .page-wrapper {
-  padding-top: 60px; /* offset for fixed navbar */
+  padding-top: 60px; /* offset for navbar */
 }
 
 /* ================== Back Button ================== */
