@@ -2,28 +2,19 @@
 #navbar {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 0; /* ensure it starts at the very left */
   width: 100%;
-  height: 60px;  /* fixed navbar height */
+  height: 60px;
   background-color: #003366;
   z-index: 1000;
 
   display: flex;
-  align-items: center;          /* vertical centering */
-  justify-content: space-between; 
-  padding: 0 20px;              /* horizontal padding */
-  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between; /* logo left, buttons/links right */
+  padding: 0 20px; /* internal horizontal spacing */
+  box-sizing: border-box; /* include padding in width calculation */
 }
 
-/* Real Fix: constrain logo to navbar height */
-#navbar .logo img {
-  max-height: 100%;   /* will never exceed navbar height */
-  height: auto;       /* maintain aspect ratio */
-  width: auto;
-  display: block;
-}
-
-/* Page wrapper offset for fixed navbar */
 .page-wrapper {
   padding-top: 60px; /* offset for navbar */
 }
