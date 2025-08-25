@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
-  <title>E-Block Rooms</title>
+  <title>E-Block Rooms</title> <!-- Change this title for each block -->
   <link rel="stylesheet" href="style1.css">
 <script>
   // Load shared responsive CSS
@@ -18,39 +19,55 @@
     }
   }
 
-  loadResponsiveStyle();
+loadResponsiveStyle();
 </script>
+
 </head>
 <body>
   <div id="navbar"></div>
-  <div class="container">
-        <div class="back-button" onclick="history.back()"></div>
-    <!-- Left Panel: Buttons -->
-    <div class="left-panel">
-      <h2>Select a Room in E-Block</h2>
-      <div class="button-group">
-        <button onclick="window.location.href='calendar.html?room=E1'">E1</button>
-        <button onclick="window.location.href='calendar.html?room=E2'">E2</button>
-        <button onclick="window.location.href='calendar.html?room=E3'">E3</button>
-      </div>
+
+  <!-- ADD THIS PAGE-WRAPPER -->
+
+  <div class="page-wrapper">
+    <!-- MOVE BACK BUTTON INSIDE PAGE-WRAPPER -->
+    <div class="back-button" role="button" tabindex="0"
+         onclick="history.back()"
+         onkeydown="if(event.key==='Enter'||event.key===' ') history.back();">
     </div>
 
-    <!-- Right Panel: Image Carousel -->
-    <div class="right-panel">
-      <div class="carousel">
-        <div class="carousel-slide">
-          <button class="carousel-button left" onclick="prevImage()">&#10094;</button>
-          <img src="e1a.jpg" class="active" alt="E1">
-          <img src="e2a.jpg" alt="E2">
-          <img src="e3a.jpg" alt="E3">
-          <button class="carousel-button right" onclick="nextImage()">&#10095;</button>
-        </div>
+```
+<div class="container">
+  <!-- Left Panel: Buttons -->
+  <div class="left-panel">
+    <h2>Select a Room in E-Block</h2> <!-- Change this for each block -->
+    <div class="button-group">
+      <button onclick="window.location.href='calendar.html?room=E1'">E1</button>
+      <button onclick="window.location.href='calendar.html?room=E2'">E2</button>
+      <button onclick="window.location.href='calendar.html?room=E3'">E3</button>
+      <!-- Adjust buttons for each block -->
+    </div>
+  </div>
+
+  <!-- Right Panel: Image Carousel -->
+  <div class="right-panel">
+    <div class="carousel">
+      <div class="carousel-slide">
+        <button class="carousel-button left" onclick="prevImage()">&#10094;</button>
+        <img src="e1a.jpg" class="active" alt="E1">
+        <img src="e2a.jpg" alt="E2">
+        <img src="e3a.jpg" alt="E3">
+        <!-- Adjust images for each block -->
+        <button class="carousel-button right" onclick="nextImage()">&#10095;</button>
       </div>
     </div>
+  </div>
+</div>
+```
 
   </div>
 
   <!-- JavaScript for Carousel Logic -->
+
   <script>
     const images = document.querySelectorAll('.carousel-slide img');
     let currentIndex = 0;
@@ -71,32 +88,33 @@
       showImage(currentIndex);
     }
   </script>
-<script>
-  async function loadNavbar() {
-    const response = await fetch('navbar.html');
-    if (response.ok) {
-      const navbarHtml = await response.text();
-      document.getElementById('navbar').innerHTML = navbarHtml;
-      attachNavbarEvents();
-    } else {
-      console.error('Failed to load navbar:', response.status);
+
+  <script>
+    async function loadNavbar() {
+      const response = await fetch('navbar.html');
+      if (response.ok) {
+        const navbarHtml = await response.text();
+        document.getElementById('navbar').innerHTML = navbarHtml;
+        attachNavbarEvents();
+      } else {
+        console.error('Failed to load navbar:', response.status);
+      }
     }
-  }
 
-  function attachNavbarEvents() {
-    // Example: contacts button event
-    document.getElementById('contactBtn').addEventListener('click', () => {
-      alert('Contact us at contact@school.edu or call 123-456-7890');
-    });
+    function attachNavbarEvents() {
+      // Example: contacts button event
+      document.getElementById('contactBtn')?.addEventListener('click', () => {
+        alert('Contact us at contact@school.edu or call 123-456-7890');
+      });
 
-    // Example: accessibility button event - toggle high contrast mode
-    document.getElementById('accessibilityBtn').addEventListener('click', () => {
-      document.body.classList.toggle('high-contrast');
-      // You could add more accessibility toggles here (larger font, screen reader ARIA tweaks, etc.)
-    });
-  }
+      // Example: accessibility button event - toggle high contrast mode
+      document.getElementById('accessibilityBtn')?.addEventListener('click', () => {
+        document.body.classList.toggle('high-contrast');
+      });
+    }
 
-  loadNavbar();
-</script>
+    loadNavbar();
+  </script>
+
 </body>
 </html>
