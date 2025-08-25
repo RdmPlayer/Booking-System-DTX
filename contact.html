@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -6,22 +7,41 @@
 <title>Contact Us</title>
 <link rel="stylesheet" href="style1.css">
 
-<!-- ADD THIS RESPONSIVE STYLE LOADING -->
-<script>
-  // Load shared responsive CSS
-  async function loadResponsiveStyle() {
-    try {
-      const res = await fetch('responsive-style.html');
-      const html = await res.text();
-      const fragment = document.createRange().createContextualFragment(html);
-      document.head.appendChild(fragment);
-    } catch (err) {
-      console.error('Failed to load responsive-style.html:', err);
-    }
+<!-- INLINE RESPONSIVE STYLES -->
+
+<style>
+  html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-text-size-adjust: 100%;
   }
 
-  loadResponsiveStyle();
-</script>
+  body {
+    margin: 0;
+    box-sizing: border-box;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+
+  *, *::before, *::after {
+    box-sizing: inherit;
+  }
+
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  button, input, textarea, select {
+    font-size: 1rem;
+    max-width: 100%;
+  }
+
+  button, .time-slot, .block, .carousel-button {
+    touch-action: manipulation;
+  }
+</style>
 
 </head>
 <body>
@@ -36,19 +56,23 @@
   </div>
 
   <!-- Contact Box -->
+
   <main class="contact-container">
     <h1>Contact Us</h1>
     <p>Have questions or need support? Reach out to us!</p>
 
-    <section>
-      <h2>Staff Members</h2>
-      <p>Contact reception at <a href="tel:+6478540010">+6478540010</a></p>
+```
+<section>
+  <h2>Staff Members</h2>
+  <p>Contact reception at <a href="tel:+6478540010">+6478540010</a></p>
 
-      <h2>Address</h2>
-      <p><a href="https://www.google.com/maps/place/1+Micah+Place,+Rototuna,+Hamilton,+3210" target="_blank">
-        1 Micah Place, Rototuna, Hamilton, 3210
-      </a></p>
-    </section>
+  <h2>Address</h2>
+  <p><a href="https://www.google.com/maps/place/1+Micah+Place,+Rototuna,+Hamilton,+3210" target="_blank">
+    1 Micah Place, Rototuna, Hamilton, 3210
+  </a></p>
+</section>
+```
+
   </main>
 </div>
 
