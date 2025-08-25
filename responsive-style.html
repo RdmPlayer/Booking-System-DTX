@@ -48,4 +48,33 @@
   button, .time-slot, .block, .carousel-button {
     touch-action: manipulation;
   }
+
+  /* MOBILE-SPECIFIC NAVBAR PADDING */
+  /* Only applies to screens 768px and below (mobile phones) */
+  @media (max-width: 768px) {
+    /* Double the navbar padding on mobile */
+    .navbar {
+      padding: 20px 40px !important; /* Doubles from original 10px 20px */
+    }
+    
+    /* Increase body padding to account for taller navbar on mobile */
+    body {
+      padding-top: 120px !important; /* Increased from default 80px */
+    }
+    
+    /* For pages using .page-wrapper, increase its padding instead */
+    .page-wrapper {
+      padding-top: 120px !important; /* Increased from default 80px */
+    }
+    
+    /* Adjust back button position for taller navbar on mobile */
+    .back-button {
+      top: 140px !important; /* Moved down from default 110px */
+    }
+    
+    /* Calendar page has its own body padding, adjust it too */
+    .calendar-container {
+      margin-top: 40px !important; /* Add extra top margin */
+    }
+  }
 </style>
