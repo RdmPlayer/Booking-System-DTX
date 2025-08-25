@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
-  <title>T-Block Rooms</title>
+  <title>T-Block Rooms</title> <!-- Change this title for each block -->
   <link rel="stylesheet" href="style1.css">
 <script>
   // Load shared responsive CSS
@@ -18,30 +19,42 @@
     }
   }
 
-  loadResponsiveStyle();
+loadResponsiveStyle();
 </script>
+
 </head>
 <body>
   <div id="navbar"></div>
-  <div class="container">
-    <div class="back-button" onclick="history.back()"></div>
-    <!-- Left Panel: Buttons -->
-    <div class="left-panel">
-      <h2>Select a Room in B-Block</h2>
-      <div class="button-group">
-        <button onclick="window.location.href='calendar.html?room=T1'">T1</button>
-        <button onclick="window.location.href='calendar.html?room=T2'">T2</button>
-        <button onclick="window.location.href='calendar.html?room=T3'">T3</button>
-        <button onclick="window.location.href='calendar.html?room=T4'">T4</button>
-        <button onclick="window.location.href='calendar.html?room=T5'">T5</button>
-        <button onclick="window.location.href='calendar.html?room=T6'">T6</button>
-        <button onclick="window.location.href='calendar.html?room=T7'">T7</button>
-      </div>
+
+  <!-- ADD THIS PAGE-WRAPPER -->
+
+  <div class="page-wrapper">
+    <!-- MOVE BACK BUTTON INSIDE PAGE-WRAPPER -->
+    <div class="back-button" role="button" tabindex="0"
+         onclick="history.back()"
+         onkeydown="if(event.key==='Enter'||event.key===' ') history.back();">
     </div>
 
-    <!-- Right Panel: Image Carousel -->
-    <div class="right-panel">
-      <div class="carousel">
+<div class="container">
+  <!-- Left Panel: Buttons -->
+  <div class="left-panel">
+    <h2>Select a Room in T-Block</h2> <!-- Change this for each block -->
+    <div class="button-group">
+      <button onclick="window.location.href='calendar.html?room=T1'">T1</button>
+      <button onclick="window.location.href='calendar.html?room=T2'">T2</button>
+      <button onclick="window.location.href='calendar.html?room=T3'">T3</button>
+      <button onclick="window.location.href='calendar.html?room=T4'">T4</button>
+      <button onclick="window.location.href='calendar.html?room=T5'">T5</button>
+      <button onclick="window.location.href='calendar.html?room=T6'">T6</button>
+      <button onclick="window.location.href='calendar.html?room=T7'">T7</button>
+      <!-- Adjust buttons for each block -->
+    </div>
+  </div>
+
+  <!-- Right Panel: Image Carousel -->
+  <div class="right-panel">
+    <div class="carousel">
+      <div class="carousel-slide">
         <button class="carousel-button left" onclick="prevImage()">&#10094;</button>
         <img src="t1a.jpg" class="active" alt="T1">
         <img src="t2a.jpg" alt="T2">
@@ -50,22 +63,19 @@
         <img src="t5a.jpg" alt="T5">
         <img src="t6a.jpg" alt="T6">
         <img src="t7a.jpg" alt="T7">
+        <!-- Adjust images for each block -->
         <button class="carousel-button right" onclick="nextImage()">&#10095;</button>
       </div>
     </div>
   </div>
+</div>
 
-<button class="t1-button" onclick="highlightButton(this); window.location.href='T1Calendar.html'">T1</button>
+  </div>
 
-<script>
-  function highlightButton(button) {
-    button.style.backgroundColor = 'red';
-    button.style.color = 'white';
-  }
-</script>
+  <!-- JavaScript for Carousel Logic -->
 
   <script>
-    const images = document.querySelectorAll('.carousel img');
+    const images = document.querySelectorAll('.carousel-slide img');
     let currentIndex = 0;
 
     function showImage(index) {
@@ -84,32 +94,33 @@
       showImage(currentIndex);
     }
   </script>
-<script>
-  async function loadNavbar() {
-    const response = await fetch('navbar.html');
-    if (response.ok) {
-      const navbarHtml = await response.text();
-      document.getElementById('navbar').innerHTML = navbarHtml;
-      attachNavbarEvents();
-    } else {
-      console.error('Failed to load navbar:', response.status);
+
+  <script>
+    async function loadNavbar() {
+      const response = await fetch('navbar.html');
+      if (response.ok) {
+        const navbarHtml = await response.text();
+        document.getElementById('navbar').innerHTML = navbarHtml;
+        attachNavbarEvents();
+      } else {
+        console.error('Failed to load navbar:', response.status);
+      }
     }
-  }
 
-  function attachNavbarEvents() {
-    // Example: contacts button event
-    document.getElementById('contactBtn').addEventListener('click', () => {
-      alert('Contact us at contact@school.edu or call 123-456-7890');
-    });
+    function attachNavbarEvents() {
+      // Example: contacts button event
+      document.getElementById('contactBtn')?.addEventListener('click', () => {
+        alert('Contact us at contact@school.edu or call 123-456-7890');
+      });
 
-    // Example: accessibility button event - toggle high contrast mode
-    document.getElementById('accessibilityBtn').addEventListener('click', () => {
-      document.body.classList.toggle('high-contrast');
-      // You could add more accessibility toggles here (larger font, screen reader ARIA tweaks, etc.)
-    });
-  }
+      // Example: accessibility button event - toggle high contrast mode
+      document.getElementById('accessibilityBtn')?.addEventListener('click', () => {
+        document.body.classList.toggle('high-contrast');
+      });
+    }
 
-  loadNavbar();
-</script>
+    loadNavbar();
+  </script>
+
 </body>
 </html>
