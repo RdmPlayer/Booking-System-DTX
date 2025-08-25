@@ -118,7 +118,7 @@ width: 80%;
 }
 
 .button-group button {
-width: 100%;
+width: 90%; /* CHANGED: Reduced from 100% to 90% (10% less wide) */
 padding: 15px;
 font-size: 16px;
 background-color: #003366;
@@ -126,6 +126,7 @@ color: white;
 border: none;
 border-radius: 5px;
 cursor: pointer;
+margin: 0 auto; /* ADDED: Center the narrower buttons */
 }
 
 .button-group button:hover {
