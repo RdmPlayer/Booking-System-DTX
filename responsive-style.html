@@ -49,14 +49,9 @@
     touch-action: manipulation;
   }
 
-  /* MOBILE-SPECIFIC NAVBAR PADDING */
-  /* Only applies to screens 768px and below (mobile phones) */
+  /* MOBILE-SPECIFIC ADJUSTMENTS FOR TALLER NAVBAR */
+  /* Only applies to screens 1100px and below (includes Redmi 9s at 1080px) */
   @media (max-width: 1100px) {
-    /* Double the navbar padding on mobile */
-    .navbar {
-      padding: 20px 40px !important; /* Doubles from original 10px 20px */
-    }
-    
     /* Increase body padding to account for taller navbar on mobile */
     body {
       padding-top: 120px !important; /* Increased from default 80px */
@@ -72,7 +67,7 @@
       top: 140px !important; /* Moved down from default 110px */
     }
     
-    /* Calendar page has its own body padding, adjust it too */
+    /* Calendar page specific adjustments */
     .calendar-container {
       margin-top: 40px !important; /* Add extra top margin */
     }
