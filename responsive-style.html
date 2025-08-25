@@ -49,27 +49,9 @@
     touch-action: manipulation;
   }
 
-  /* MOBILE-SPECIFIC ADJUSTMENTS FOR TALLER NAVBAR */
+  /* MOBILE-SPECIFIC ADJUSTMENTS - MINIMAL NEEDED */
   /* Only applies to screens 1100px and below (includes Redmi 9s at 1080px) */
   @media (max-width: 1100px) {
-    /* Increase body padding to account for taller navbar on mobile */
-    body {
-      padding-top: 120px !important; /* Increased from default 80px */
-    }
-    
-    /* For pages using .page-wrapper, increase its padding instead */
-    .page-wrapper {
-      padding-top: 120px !important; /* Increased from default 80px */
-    }
-    
-    /* Adjust back button position for taller navbar on mobile */
-    .back-button {
-      top: 140px !important; /* Moved down from default 110px */
-    }
-    
-    /* Calendar page specific adjustments */
-    .calendar-container {
-      margin-top: 40px !important; /* Add extra top margin */
-    }
+    /* No additional adjustments needed since we're using margin-bottom on navbar */
   }
 </style>
