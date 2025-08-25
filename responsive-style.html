@@ -1,19 +1,32 @@
 <!-- meta-and-style.html -->
+
 <!-- To be pasted inside <head> of each page -->
 
 <!-- Viewport for responsive scaling on mobile -->
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Optional: Prevent pinch-zooming if not needed -->
+
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> -->
 
 <!-- Normalize some spacing and prevent text zoom bugs on iOS -->
+
 <style>
-  html, body {
+  html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     -webkit-text-size-adjust: 100%; /* Prevent font size scaling on iOS */
+  }
+
+  /* Don't reset body padding - let style1.css handle it through .page-wrapper */
+  body {
+    margin: 0;
+    /* Remove padding: 0 to allow .page-wrapper padding-top to work */
+    box-sizing: border-box;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden; /* Keep this for preventing horizontal scrolling */
   }
 
   *, *::before, *::after {
@@ -29,11 +42,6 @@
   button, input, textarea, select {
     font-size: 1rem;
     max-width: 100%;
-  }
-
-  /* Optional: Prevent horizontal scrolling */
-  body {
-    overflow-x: hidden;
   }
 
   /* Optional: Improve tap targets on touchscreens */
