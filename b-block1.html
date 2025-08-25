@@ -41,6 +41,93 @@ loadResponsiveStyle();
 .back-button:hover {
   opacity: 0.8;
 }
+
+/* ============================================
+SIMPLE BACK BUTTON OVERLAP FIX
+Add this CSS to the <style> section of each page
+============================================ */
+
+.back-button {
+width: 80px;
+height: 80px;
+background-image: url(‘back.jpg’);
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+cursor: pointer;
+position: fixed;
+top: 110px;
+left: 20px;
+z-index: 1000;
+}
+
+.back-button:hover {
+opacity: 0.8;
+}
+
+/* Push main content away from back button */
+.page-wrapper,
+.calendar-container,
+.main-content,
+.container,
+.contact-container {
+margin-left: 120px; /* 80px button + 40px safe space */
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+/* Move back button to top-right on mobile */
+.back-button {
+left: auto;
+right: 20px;
+top: 90px;
+width: 60px;
+height: 60px;
+}
+
+/* Remove left margin, add right margin */
+.page-wrapper,
+.calendar-container,
+.main-content,
+.container,
+.contact-container {
+margin-left: 0;
+margin-right: 90px; /* Space for button on right */
+}
+}
+
+/* Very small screens - make button a text button */
+@media screen and (max-width: 480px) {
+.back-button {
+position: static;
+width: 100%;
+height: 40px;
+margin: 10px 20px;
+background: #003366;
+color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 16px;
+font-weight: bold;
+border-radius: 5px;
+background-image: none;
+}
+
+.back-button::before {
+content: “← Back”;
+}
+
+/* Remove all margins */
+.page-wrapper,
+.calendar-container,
+.main-content,
+.container,
+.contact-container {
+margin-left: 0;
+margin-right: 0;
+}
+}  
 </style>
   
 </head>
