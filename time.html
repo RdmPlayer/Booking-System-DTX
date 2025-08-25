@@ -1,310 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
-  <title>Select Time</title>
-
-  <!-- Load shared responsive CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Selection</title>
+  <link rel="stylesheet" href="style1.css">
   <script>
-    async function loadResponsiveStyle() {
-      try {
-        const res = await fetch('responsive-style.html');
-        const html = await res.text();
-        const fragment = document.createRange().createContextualFragment(html);
-        document.head.appendChild(fragment);
-      } catch (err) {
-        console.error('Failed to load responsive-style.html:', err);
+    // Load responsive-style.html if you still need it
+    fetch('responsive-style.html')
+      .then(response => response.text())
+      .then(css => {
+        const style = document.createElement('style');
+        style.textContent = css;
+        document.head.appendChild(style);
+      });
+  </script>
+  <script>
+    // Load navbar
+    async function loadNavbar() {
+      const res = await fetch('navbar.html');
+      if (res.ok) {
+        const navbarHtml = await res.text();
+        document.getElementById('navbar').innerHTML = navbarHtml;
+      } else {
+        console.error('Failed to load navbar:', res.status);
       }
     }
-    loadResponsiveStyle();
+    window.onload = loadNavbar;
   </script>
-
-  <!-- EmailJS SDK -->
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script>
-    window.onload = function () {
-      emailjs.init("gXsasKQvafXSOTw-7"); // Replace with your EmailJS public key
-    };
-  </script>
-
   <style>
-    /* Reset base styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    /* Reset & page spacing (same as contacts.html) */
     body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      background-color: #f9f9f9;
-      color: #333;
-      padding-top: 80px; /* Add this line */
-    }
-
-    /* Navbar placeholder */
-    #navbar {
       margin: 0;
-      padding: 0;
-      border: none;
-      box-shadow: none;
-      outline: none;
-      width: 100%;
+      font-family: Arial, sans-serif;
     }
-
-    /* Back Button */
-    .back-button {
-      width: 80px;
-      height: 80px;
-      background-image: url('back.jpg'); /* Use your actual back arrow image */
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      cursor: pointer;
-      position: fixed;
-      top: 110px;
-      left: 20px;
-      z-index: 1000;
-    }
-
-    .back-button:hover {
-      opacity: 0.8;
-    }
-
-    /* Main content layout */
-    .main-content {
-      display: flex;
-      flex-direction: row;
-      padding: 40px;
-      gap: 40px;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .form-section, .time-section {
-      flex: 1;
-    }
-
-    /* Adjusted spacing for form section */
-    .form-section {
-      margin-top: 120px; /* Added to move form down below the back button */
-    }
-
-    h2 {
-      text-align: left;
-    }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-
-    .time-slot {
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      margin: 5px;
-      border-radius: 4px;
-      cursor: pointer;
-      width: 100px;
+    .page-wrapper {
+      padding-top: 80px; /* keeps content below navbar */
       text-align: center;
     }
 
-    .time-slot.booked {
-      background-color: gray;
-      cursor: not-allowed;
+    /* Time selection buttons */
+    .time-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 15px;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
-    .time-slot:hover:not(.booked) {
-      background-color: #388e3c;
-    }
-
-    .time-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .submit-button {
-      margin-top: 20px;
-      background-color: #c42026;
+    .time-button {
+      padding: 15px;
+      font-size: 16px;
+      background-color: #003366;
       color: white;
       border: none;
-      padding: 10px 20px;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
-    .submit-button:disabled {
-      background-color: gray;
-      cursor: not-allowed;
-    }
-
-    /* High Contrast Mode */
-    body.high-contrast {
-      background-color: black;
-      color: white;
-    }
-
-    body.high-contrast input,
-    body.high-contrast textarea {
-      background-color: #000;
-      color: #fff;
-      border-color: #fff;
-    }
-
-    @media (max-width: 768px) {
-      .main-content {
-        flex-direction: column;
-        padding: 20px;
-      }
-
-      .form-section {
-        margin-top: 20px; /* Reduce space on smaller screens */
-      }
+    .time-button:hover {
+      background-color: #a11820;
     }
   </style>
 </head>
-
 <body>
-  <!-- Navbar (loaded dynamically) -->
   <div id="navbar"></div>
-
-  <!-- Back Button -->
-  <div class="back-button" onclick="history.back()"></div>
-
-  <!-- Main content: Booking form and time slots -->
-  <div class="main-content">
-    <!-- Left: Booking Form -->
-    <div class="form-section">
-      <h2>Booking Info</h2>
-      <form id="bookingForm">
-        <label for="name">What is your name?</label>
-        <input type="text" id="name" name="user_name" required>
-
-        <label for="reason">What are you booking this room for?</label>
-        <textarea id="reason" name="reason" rows="3" required></textarea>
-
-        <label for="gmail">What is your Gmail address?</label>
-        <input type="email" id="gmail" name="gmail" required>
-
-        <!-- Hidden values passed via URL -->
-        <input type="hidden" id="room" name="room">
-        <input type="hidden" id="date" name="date">
-        <input type="hidden" id="time" name="time">
-
-        <button type="submit" class="submit-button" disabled id="submitBtn">Confirm Booking</button>
-      </form>
-    </div>
-
-    <!-- Right: Time Slot Selection -->
-    <div class="time-section">
-      <h2>Select a Time</h2>
-      <p id="infoText"></p>
-      <div class="time-list" id="timeSlots"></div>
+  <div class="page-wrapper">
+    <h1>Select a Time</h1>
+    <div class="time-buttons">
+      <button class="time-button">7:00 AM</button>
+      <button class="time-button">8:00 AM</button>
+      <button class="time-button">9:00 AM</button>
+      <button class="time-button">10:00 AM</button>
+      <button class="time-button">11:00 AM</button>
+      <button class="time-button">12:00 PM</button>
+      <button class="time-button">1:00 PM</button>
+      <button class="time-button">2:00 PM</button>
+      <button class="time-button">3:00 PM</button>
+      <button class="time-button">4:00 PM</button>
     </div>
   </div>
-
-  <!-- Booking Logic -->
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const room = params.get("room") || "Unknown Room";
-    const date = params.get("date") || "Unknown Date";
-
-    document.getElementById("room").value = room;
-    document.getElementById("date").value = date;
-    document.getElementById("infoText").textContent = `Booking: ${room} on ${date}`;
-
-    const submitBtn = document.getElementById("submitBtn");
-    const timeSlotsEl = document.getElementById("timeSlots");
-
-    for (let hour = 7; hour <= 16; hour++) {
-      const timeText = `${hour}:00`;
-      const slot = document.createElement("div");
-      slot.className = "time-slot";
-      slot.textContent = timeText;
-
-      const bookingKey = `booking-${room}-${date}-${timeText}`;
-      if (localStorage.getItem(bookingKey)) {
-        slot.classList.add("booked");
-      } else {
-        slot.addEventListener("click", () => {
-          if (slot.classList.contains("booked")) return;
-
-          document.querySelectorAll(".time-slot").forEach(s => {
-            if (!s.classList.contains("booked")) {
-              s.style.backgroundColor = "#4CAF50";
-            }
-          });
-
-          slot.style.backgroundColor = "#c42026";
-          document.getElementById("time").value = timeText;
-          submitBtn.disabled = false;
-        });
-      }
-
-      timeSlotsEl.appendChild(slot);
-    }
-
-    document.getElementById("bookingForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const time = document.getElementById("time").value;
-      const bookingKey = `booking-${room}-${date}-${time}`;
-      localStorage.setItem(bookingKey, "true");
-
-      emailjs.sendForm("service_o2culcj", "template_vtfmipe", this)
-        .then(() => {
-          alert("Booking confirmed and email sent!");
-          window.location.href = "index.html";
-        }, (error) => {
-          alert("Failed to send booking email: " + JSON.stringify(error));
-        });
-    });
-  </script>
-
-  <!-- Load navbar and attach events -->
-  <script>
-    async function loadNavbar() {
-      const response = await fetch('navbar.html');
-      if (response.ok) {
-        const navbarHtml = await response.text();
-        document.getElementById('navbar').innerHTML = navbarHtml;
-        attachNavbarEvents();
-      } else {
-        console.error('Failed to load navbar:', response.status);
-      }
-    }
-
-    function attachNavbarEvents() {
-      const contactBtn = document.getElementById('contactBtn');
-      const accessibilityBtn = document.getElementById('accessibilityBtn');
-
-      if (contactBtn) {
-        contactBtn.addEventListener('click', () => {
-          alert('Contact us at contact@school.edu or call 123-456-7890');
-        });
-      }
-
-      if (accessibilityBtn) {
-        accessibilityBtn.addEventListener('click', () => {
-          document.body.classList.toggle('high-contrast');
-        });
-      }
-    }
-
-    loadNavbar();
-  </script>
 </body>
 </html>
