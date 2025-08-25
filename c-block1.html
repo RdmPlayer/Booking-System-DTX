@@ -7,6 +7,22 @@
   <title>C-Block Rooms</title> <!-- Change this title for each block -->
   <link rel="stylesheet" href="style1.css">
 
+<script>
+  // Load shared responsive CSS
+  async function loadResponsiveStyle() {
+    try {
+      const res = await fetch('responsive-style.html');
+      const html = await res.text();
+      const fragment = document.createRange().createContextualFragment(html);
+      document.head.appendChild(fragment);
+    } catch (err) {
+      console.error('Failed to load responsive-style.html:', err);
+    }
+  }
+
+loadResponsiveStyle();
+</script>
+  
 </head>
 <body>
   <div id="navbar"></div>
