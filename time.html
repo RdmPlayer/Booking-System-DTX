@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -6,6 +7,7 @@
   <title>Select Time</title>
 
   <!-- Load shared responsive CSS -->
+
   <script>
     async function loadResponsiveStyle() {
       try {
@@ -21,7 +23,9 @@
   </script>
 
   <!-- EmailJS SDK -->
+
   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
   <script>
     window.onload = function () {
       emailjs.init("gXsasKQvafXSOTw-7"); // Replace with your EmailJS public key
@@ -61,6 +65,16 @@
 
     .back-button:hover {
       opacity: 0.8;
+    }
+
+    /* MOBILE PADDING FIX - Only for screens under 1100px */
+    @media screen and (max-width: 1100px) {
+      .form-section {
+        margin-top: 180px !important;
+      }
+      .main-content {
+        padding-top: 60px !important;
+      }
     }
 
     /* Main content layout */
@@ -166,6 +180,7 @@
       }
     }
   </style>
+
 </head>
 
 <body>
@@ -173,9 +188,11 @@
   <div id="navbar"></div>
 
   <!-- Back Button -->
+
   <div class="back-button" onclick="history.back()"></div>
 
   <!-- Main content: Booking form and time slots -->
+
   <div class="main-content">
     <!-- Left: Booking Form -->
     <div class="form-section">
@@ -184,30 +201,34 @@
         <label for="name">What is your name?</label>
         <input type="text" id="name" name="user_name" required>
 
-        <label for="reason">What are you booking this room for?</label>
-        <textarea id="reason" name="reason" rows="3" required></textarea>
+```
+    <label for="reason">What are you booking this room for?</label>
+    <textarea id="reason" name="reason" rows="3" required></textarea>
 
-        <label for="gmail">What is your Gmail address?</label>
-        <input type="email" id="gmail" name="gmail" required>
+    <label for="gmail">What is your Gmail address?</label>
+    <input type="email" id="gmail" name="gmail" required>
 
-        <!-- Hidden values passed via URL -->
-        <input type="hidden" id="room" name="room">
-        <input type="hidden" id="date" name="date">
-        <input type="hidden" id="time" name="time">
+    <!-- Hidden values passed via URL -->
+    <input type="hidden" id="room" name="room">
+    <input type="hidden" id="date" name="date">
+    <input type="hidden" id="time" name="time">
 
-        <button type="submit" class="submit-button" disabled id="submitBtn">Confirm Booking</button>
-      </form>
-    </div>
+    <button type="submit" class="submit-button" disabled id="submitBtn">Confirm Booking</button>
+  </form>
+</div>
 
-    <!-- Right: Time Slot Selection -->
-    <div class="time-section">
-      <h2>Select a Time</h2>
-      <p id="infoText"></p>
-      <div class="time-list" id="timeSlots"></div>
-    </div>
+<!-- Right: Time Slot Selection -->
+<div class="time-section">
+  <h2>Select a Time</h2>
+  <p id="infoText"></p>
+  <div class="time-list" id="timeSlots"></div>
+</div>
+```
+
   </div>
 
   <!-- Booking Logic -->
+
   <script>
     const params = new URLSearchParams(window.location.search);
     const room = params.get("room") || "Unknown Room";
@@ -265,6 +286,7 @@
   </script>
 
   <!-- Load navbar and attach events -->
+
   <script>
     async function loadNavbar() {
       const response = await fetch('navbar.html');
@@ -296,5 +318,6 @@
 
     loadNavbar();
   </script>
+
 </body>
 </html>
