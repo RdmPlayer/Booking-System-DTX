@@ -23,6 +23,7 @@ loadResponsiveStyle();
 </script>
 
 <!-- ADDED: Back button CSS styles -->
+
 <style>
 .back-button {
   width: 80px;
@@ -50,7 +51,7 @@ loadResponsiveStyle();
   }
 }
 </style>
-  
+
 </head>
 <body>
   <div id="navbar"></div>
@@ -69,14 +70,15 @@ loadResponsiveStyle();
   <div class="left-panel">
     <h2>Select a Room in E-Block</h2> <!-- Change this for each block -->
     <div class="button-group">
-      <button onclick="window.location.href='calendar.html?room=E1'">E1</button>
-      <button onclick="window.location.href='calendar.html?room=E2'">E2</button>
-      <button onclick="window.location.href='calendar.html?room=E3'">E3</button>
+      <button data-image="0" onclick="window.location.href='calendar.html?room=E1'">E1</button>
+      <button data-image="1" onclick="window.location.href='calendar.html?room=E2'">E2</button>
+      <button data-image="2" onclick="window.location.href='calendar.html?room=E3'">E3</button>
       <!-- Adjust buttons for each block -->
     </div>
   </div>
 
   <!-- Right Panel: Image Carousel -->
+
   <div class="right-panel">
     <div class="carousel">
       <div class="carousel-slide">
@@ -93,27 +95,51 @@ loadResponsiveStyle();
 
   </div>
 
-  <!-- JavaScript for Carousel Logic -->
+  <!-- JavaScript for Carousel Logic with Hover Effect -->
 
   <script>
     const images = document.querySelectorAll('.carousel-slide img');
+    const roomButtons = document.querySelectorAll('.button-group button');
     let currentIndex = 0;
+    let isHovering = false;
 
     function showImage(index) {
       images.forEach((img, i) => {
         img.classList.toggle('active', i === index);
       });
+      if (!isHovering) {
+        currentIndex = index;
+      }
     }
 
     function prevImage() {
-      currentIndex = (currentIndex - 1 + images.length) % images.length;
-      showImage(currentIndex);
+      if (!isHovering) {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showImage(currentIndex);
+      }
     }
 
     function nextImage() {
-      currentIndex = (currentIndex + 1) % images.length;
-      showImage(currentIndex);
+      if (!isHovering) {
+        currentIndex = (currentIndex + 1) % images.length;
+        showImage(currentIndex);
+      }
     }
+
+    // Add hover event listeners to room buttons
+    roomButtons.forEach(button => {
+      const imageIndex = parseInt(button.getAttribute('data-image'));
+      
+      button.addEventListener('mouseenter', () => {
+        isHovering = true;
+        showImage(imageIndex);
+      });
+      
+      button.addEventListener('mouseleave', () => {
+        isHovering = false;
+        showImage(currentIndex); // Return to current carousel position
+      });
+    });
   </script>
 
   <script>
