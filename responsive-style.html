@@ -49,20 +49,24 @@
     touch-action: manipulation;
   }
 
-  /* MOBILE-SPECIFIC ADJUSTMENTS FOR TALLER NAVBAR */
+  /* MOBILE-SPECIFIC ADJUSTMENTS */
   /* Only applies to screens 1100px and below (includes Redmi 9s at 1080px) */
   @media (max-width: 1100px) {
-    /* Increase body padding to account for taller navbar on mobile */
-    body {
-      padding-top: 200px !important; /* Increased from default 80px */
-    }
     
-    /* For pages using .page-wrapper, increase its padding instead */
+    /* Fix white space background for school blocks (booking room pages) */
     .page-wrapper {
-      padding-top: 100px !important; /* Increased from default 80px */
+      background-color: #f0f0f0 !important; /* Match the page background */
+      padding-top: 32px !important; /* Reduced by 60% from 80px */
     }
     
-    /* Calendar page specific adjustments 
-    .calendar-container {
-      margin-top: 40px !important;  Add extra top margin} */
+    /* Calendar page - reduce top padding by 30% */
+    body {
+      padding-top: 56px !important; /* Reduced by 30% from 80px */
+    }
+    
+    /* Time page - reduce form section margin by 30% */
+    .form-section {
+      margin-top: 84px !important; /* Reduced by 30% from 120px */
+    }
+  }
 </style>
