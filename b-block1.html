@@ -23,6 +23,7 @@ loadResponsiveStyle();
 </script>
 
 <!-- ADDED: Back button CSS styles -->
+
 <style>
 .back-button {
   width: 80px;
@@ -41,8 +42,16 @@ loadResponsiveStyle();
 .back-button:hover {
   opacity: 0.8;
 }
+
+/* MOBILE PADDING FIX - Only for screens under 1100px */
+@media screen and (max-width: 1100px) {
+  .page-wrapper {
+    padding-top: 140px !important;
+    background-color: #f0f0f0 !important; /* Match the page background */
+  }
+}
 </style>
-  
+
 </head>
 <body>
   <div id="navbar"></div>
@@ -71,6 +80,7 @@ loadResponsiveStyle();
   </div>
 
   <!-- Right Panel: Image Carousel -->
+
   <div class="right-panel">
     <div class="carousel">
       <div class="carousel-slide">
