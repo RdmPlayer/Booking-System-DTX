@@ -23,6 +23,7 @@ loadResponsiveStyle();
 </script>
 
 <!-- ADDED: Back button CSS styles -->
+
 <style>
 .back-button {
   width: 80px;
@@ -50,7 +51,7 @@ loadResponsiveStyle();
   }
 }
 </style>
-  
+
 </head>
 <body>
   <div id="navbar"></div>
@@ -69,19 +70,20 @@ loadResponsiveStyle();
   <div class="left-panel">
     <h2>Select a Room in I-Block</h2> <!-- Change this for each block -->
     <div class="button-group">
-        <button onclick="window.location.href='calendar.html?room=IU1'">I1 (Upstairs)</button>
-        <button onclick="window.location.href='calendar.html?room=IU2'">I2 (Upstairs)</button>
-        <button onclick="window.location.href='calendar.html?room=IU3'">I3 (Upstairs)</button>
-        <button onclick="window.location.href='calendar.html?room=IU4'">I4 (Upstairs)</button>
-        <button onclick="window.location.href='calendar.html?room=ID1'">I1 (Downstairs)</button>
-        <button onclick="window.location.href='calendar.html?room=ID2'">I2 (Downstairs)</button>
-        <button onclick="window.location.href='calendar.html?room=ID3'">I3 (Downstairs)</button>
-        <button onclick="window.location.href='calendar.html?room=ID4'">I4 (Downstairs)</button>
+        <button data-image="0" onclick="window.location.href='calendar.html?room=IU1'">I1 (Upstairs)</button>
+        <button data-image="1" onclick="window.location.href='calendar.html?room=IU2'">I2 (Upstairs)</button>
+        <button data-image="2" onclick="window.location.href='calendar.html?room=IU3'">I3 (Upstairs)</button>
+        <button data-image="3" onclick="window.location.href='calendar.html?room=IU4'">I4 (Upstairs)</button>
+        <button data-image="4" onclick="window.location.href='calendar.html?room=ID1'">I1 (Downstairs)</button>
+        <button data-image="5" onclick="window.location.href='calendar.html?room=ID2'">I2 (Downstairs)</button>
+        <button data-image="6" onclick="window.location.href='calendar.html?room=ID3'">I3 (Downstairs)</button>
+        <button data-image="7" onclick="window.location.href='calendar.html?room=ID4'">I4 (Downstairs)</button>
       <!-- Adjust buttons for each block -->
     </div>
   </div>
 
   <!-- Right Panel: Image Carousel -->
+
   <div class="right-panel">
     <div class="carousel">
       <div class="carousel-slide">
@@ -103,27 +105,51 @@ loadResponsiveStyle();
 
   </div>
 
-  <!-- JavaScript for Carousel Logic -->
+  <!-- JavaScript for Carousel Logic with Hover Effect -->
 
   <script>
     const images = document.querySelectorAll('.carousel-slide img');
+    const roomButtons = document.querySelectorAll('.button-group button');
     let currentIndex = 0;
+    let isHovering = false;
 
     function showImage(index) {
       images.forEach((img, i) => {
         img.classList.toggle('active', i === index);
       });
+      if (!isHovering) {
+        currentIndex = index;
+      }
     }
 
     function prevImage() {
-      currentIndex = (currentIndex - 1 + images.length) % images.length;
-      showImage(currentIndex);
+      if (!isHovering) {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showImage(currentIndex);
+      }
     }
 
     function nextImage() {
-      currentIndex = (currentIndex + 1) % images.length;
-      showImage(currentIndex);
+      if (!isHovering) {
+        currentIndex = (currentIndex + 1) % images.length;
+        showImage(currentIndex);
+      }
     }
+
+    // Add hover event listeners to room buttons
+    roomButtons.forEach(button => {
+      const imageIndex = parseInt(button.getAttribute('data-image'));
+      
+      button.addEventListener('mouseenter', () => {
+        isHovering = true;
+        showImage(imageIndex);
+      });
+      
+      button.addEventListener('mouseleave', () => {
+        isHovering = false;
+        showImage(currentIndex); // Return to current carousel position
+      });
+    });
   </script>
 
   <script>
