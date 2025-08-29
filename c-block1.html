@@ -98,12 +98,12 @@ loadResponsiveStyle();
   </div>
 
   <!-- JavaScript for Carousel Logic with Hover Effect -->
-
   <script>
     const images = document.querySelectorAll('.carousel-slide img');
     const roomButtons = document.querySelectorAll('.button-group button');
     let currentIndex = 0;
     let isHovering = false;
+    let lastHoveredIndex = 0;
 
     function showImage(index) {
       images.forEach((img, i) => {
@@ -111,6 +111,7 @@ loadResponsiveStyle();
       });
       if (!isHovering) {
         currentIndex = index;
+        lastHoveredIndex = index;
       }
     }
 
@@ -134,12 +135,13 @@ loadResponsiveStyle();
       
       button.addEventListener('mouseenter', () => {
         isHovering = true;
+        lastHoveredIndex = imageIndex;
         showImage(imageIndex);
       });
       
       button.addEventListener('mouseleave', () => {
         isHovering = false;
-        showImage(currentIndex); // Return to current carousel position
+        showImage(lastHoveredIndex); // Stay on last hovered image
       });
     });
   </script>
