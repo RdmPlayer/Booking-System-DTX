@@ -211,47 +211,64 @@ width: 90%;
 }
 }
 
-/* ================== Mobile Fix for 1100px breakpoint ================== */
+/* ================== AGGRESSIVE Mobile Fix for 1100px breakpoint ================== */
 @media screen and (max-width: 1100px) {
-/* Override the page-wrapper padding from HTML */
+/* NUCLEAR OPTION: Override ALL conflicting styles with maximum specificity */
 .page-wrapper {
-padding-top: 120px !important;
+padding-top: 80px !important; /* Much less padding */
 background-color: #f0f0f0 !important;
 }
 
-/* Fix container height */
+/* Force container to use remaining space */
 .container {
-height: calc(100vh - 120px) !important;
-min-height: 600px !important; /* Ensure minimum height for all buttons */
+height: calc(100vh - 80px) !important;
+min-height: 700px !important;
 }
 
-/* Fix left panel to ensure all buttons are visible */
+/* FORCE left panel to show all content */
 .left-panel {
-padding: 10px !important; /* Reduce padding */
-justify-content: flex-start !important; /* Change from center to flex-start */
-overflow-y: auto !important; /* Add scrolling if needed */
+padding: 5px 10px !important; /* Minimal padding */
+padding-top: 20px !important; /* Small top padding */
+padding-bottom: 20px !important; /* Small bottom padding */
+justify-content: flex-start !important; /* Start from top */
+overflow-y: auto !important; /* Enable scrolling */
 }
 
+/* FORCE heading to not take excessive space */
 .left-panel h2 {
-margin-top: 10px !important; /* Reduce top margin */
-margin-bottom: 15px !important; /* Reduce bottom margin */
-font-size: 1.2rem !important; /* Slightly smaller heading */
+margin-top: 10px !important; /* Override the 200px from HTML */
+margin-bottom: 10px !important;
+font-size: 1.1rem !important;
+padding: 0 !important;
 }
 
-/* Make buttons smaller in mobile */
-.button-group button {
-padding: 12px !important; /* Reduce button padding */
-font-size: 14px !important; /* Smaller font */
-margin-bottom: 5px !important; /* Reduce gap between buttons */
-}
-
+/* Make button group more compact */
 .button-group {
-gap: 5px !important; /* Reduce gap between buttons */
-width: 90% !important;
+gap: 3px !important; /* Very small gaps */
+width: 95% !important;
+margin-top: 0 !important;
 }
 
-/* Fix right panel */
+/* Make buttons more compact */
+.button-group button {
+padding: 8px 12px !important; /* Much smaller padding */
+font-size: 13px !important; /* Smaller text */
+margin-bottom: 2px !important;
+width: 100% !important;
+}
+
+/* Force right panel to be smaller if needed */
 .right-panel {
-padding: 10px !important;
+padding: 5px !important;
+padding-top: 20px !important;
+}
+
+/* If still not enough space, make container scrollable */
+html, body {
+overflow-x: hidden !important;
+}
+
+.page-wrapper {
+min-height: 100vh !important;
 }
 }
