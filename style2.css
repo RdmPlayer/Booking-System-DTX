@@ -2,7 +2,7 @@
 body {
 font-family: Arial, sans-serif;
 margin: 0;
-background-color: #f0f0f0;
+background-color: #000000;
 overflow-x: hidden;
 padding-top: 80px; /* Add space for fixed navbar */
 }
@@ -10,7 +10,7 @@ padding-top: 80px; /* Add space for fixed navbar */
 /* Remove conflicting navbar styles - let navbar.html handle its own styling */
 #navbar {
 /* Only keep essential positioning - remove all styling conflicts */
-position: fixed;
+position: absolute;
 top: 0;
 left: 0;
 width: 100%;
