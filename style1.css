@@ -210,3 +210,10 @@ height: 50vh;
 width: 90%;
 }
 }
+
+/* ================== Mobile Fix for 1100px breakpoint ================== */
+@media screen and (max-width: 1100px) {
+.container {
+height: calc(100vh - 150px) !important; /* Subtract the padding-top from page-wrapper */
+}
+}
