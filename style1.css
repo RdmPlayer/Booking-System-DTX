@@ -213,7 +213,45 @@ width: 90%;
 
 /* ================== Mobile Fix for 1100px breakpoint ================== */
 @media screen and (max-width: 1100px) {
+/* Override the page-wrapper padding from HTML */
+.page-wrapper {
+padding-top: 120px !important;
+background-color: #f0f0f0 !important;
+}
+
+/* Fix container height */
 .container {
-height: calc(100vh - 150px) !important; /* Subtract the padding-top from page-wrapper */
+height: calc(100vh - 120px) !important;
+min-height: 600px !important; /* Ensure minimum height for all buttons */
+}
+
+/* Fix left panel to ensure all buttons are visible */
+.left-panel {
+padding: 10px !important; /* Reduce padding */
+justify-content: flex-start !important; /* Change from center to flex-start */
+overflow-y: auto !important; /* Add scrolling if needed */
+}
+
+.left-panel h2 {
+margin-top: 10px !important; /* Reduce top margin */
+margin-bottom: 15px !important; /* Reduce bottom margin */
+font-size: 1.2rem !important; /* Slightly smaller heading */
+}
+
+/* Make buttons smaller in mobile */
+.button-group button {
+padding: 12px !important; /* Reduce button padding */
+font-size: 14px !important; /* Smaller font */
+margin-bottom: 5px !important; /* Reduce gap between buttons */
+}
+
+.button-group {
+gap: 5px !important; /* Reduce gap between buttons */
+width: 90% !important;
+}
+
+/* Fix right panel */
+.right-panel {
+padding: 10px !important;
 }
 }
